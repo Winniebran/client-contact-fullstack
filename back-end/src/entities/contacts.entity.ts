@@ -26,7 +26,10 @@ export class Contacts {
   @Column({ length: 20, unique: true })
   cellPhone: string;
 
-  @Column({ default: false })
+  @Column({
+    default:
+      "https://semeandoafeto.imadel.org.br/packages/trustir/exclusiva/img/user_placeholder.png",
+  })
   image: string;
 
   @CreateDateColumn()
