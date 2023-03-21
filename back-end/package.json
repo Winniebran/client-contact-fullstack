@@ -1,8 +1,7 @@
 {
-  "name": "client-contact-fullstack",
+  "name": "back-end",
   "version": "1.0.0",
-  "main": "index.ts",
-  "author": "Winnie <winnie_brandao@yahoo.com.br>",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server",
@@ -36,6 +35,6 @@
     "ts-node": "^10.9.1",
     "typeorm": "^0.3.11",
     "uuid": "^9.0.0",
-    "yup": "^0.32.11"
+    "zod": "^3.21.4"
   }
 }
