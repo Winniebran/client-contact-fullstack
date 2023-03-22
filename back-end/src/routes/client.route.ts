@@ -6,7 +6,7 @@ import {
   listOneClientController,
   updateClientController,
 } from "../controllers/client.controller";
-import { dataIsValidMiddleware } from "../middlewares";
+import { dataIsValidMiddleware, idIsValidMiddleware } from "../middlewares";
 import {
   createClientSerializer,
   updateClientSerializer,
@@ -16,7 +16,7 @@ export const clientRouter = Router();
 
 clientRouter.get("", listClientsController);
 
-clientRouter.get("/:id", listOneClientController);
+clientRouter.get("/:id", idIsValidMiddleware, listOneClientController);
 
 clientRouter.post(
   "",
@@ -26,8 +26,9 @@ clientRouter.post(
 
 clientRouter.patch(
   "/:id",
+  idIsValidMiddleware,
   dataIsValidMiddleware(updateClientSerializer),
   updateClientController
 );
 
-clientRouter.delete("/:id", deleteClientController);
+clientRouter.delete("/:id", idIsValidMiddleware, deleteClientController);

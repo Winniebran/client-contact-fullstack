@@ -5,7 +5,11 @@ import {
   listTypesController,
   updateTypeController,
 } from "../controllers/type.controller";
-import { AuthMiddleware, dataIsValidMiddleware } from "../middlewares";
+import {
+  AuthMiddleware,
+  dataIsValidMiddleware,
+  idIsValidMiddleware,
+} from "../middlewares";
 import {
   createTypeSerializer,
   updateTypeSerializer,
@@ -25,8 +29,14 @@ typeRouter.post(
 typeRouter.patch(
   "/:id",
   AuthMiddleware,
+  idIsValidMiddleware,
   dataIsValidMiddleware(updateTypeSerializer),
   updateTypeController
 );
 
-typeRouter.delete("/:id", AuthMiddleware, deleteTypeController);
+typeRouter.delete(
+  "/:id",
+  AuthMiddleware,
+  idIsValidMiddleware,
+  deleteTypeController
+);
