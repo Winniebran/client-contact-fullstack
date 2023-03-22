@@ -5,7 +5,7 @@ export const createContactSerializer = z.object({
   lastName: z.string().min(2).trim(),
   email: z.string().trim().email("Invalid email format").min(10),
   cellPhone: z.string().trim().min(11),
-  image: z.string().trim().nullable(),
+  image: z.string().trim().nullish(),
 });
 
 export const contactResponseSerializer = createContactSerializer.extend({

@@ -13,7 +13,7 @@ export const createClientSerializer = z.object({
     .regex(/.{8,}/, "Must contain at least 8 characters"),
   email: z.string().trim().email("Invalid email format").min(10),
   cellPhone: z.string().trim().min(11),
-  image: z.string().trim().nullable(),
+  image: z.string().trim().nullish(),
 });
 
 export const clientResponseSerializer = createClientSerializer
