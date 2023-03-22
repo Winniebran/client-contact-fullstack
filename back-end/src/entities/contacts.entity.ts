@@ -27,10 +27,12 @@ export class Contacts {
   cellPhone: string;
 
   @Column({
+    type: "varchar",
     default:
       "https://semeandoafeto.imadel.org.br/packages/trustir/exclusiva/img/user_placeholder.png",
+    nullable: true,
   })
-  image: string;
+  image?: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

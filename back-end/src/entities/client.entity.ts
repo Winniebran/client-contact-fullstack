@@ -33,10 +33,12 @@ export class Client {
   cellPhone: string;
 
   @Column({
+    type: "varchar",
     default:
       "https://semeandoafeto.imadel.org.br/packages/trustir/exclusiva/img/user_placeholder.png",
+    nullable: true,
   })
-  image: string;
+  image?: string | null;
 
   @Column({ default: true })
   isActive: boolean;

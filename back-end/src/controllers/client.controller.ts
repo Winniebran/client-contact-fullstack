@@ -19,7 +19,7 @@ export const listOneClientController = async (req: Request, res: Response) => {
   return res.json(client);
 };
 
-export const createUserController = async (req: Request, res: Response) => {
+export const createClientController = async (req: Request, res: Response) => {
   const clientData: IClientRequest = req.body;
   const client = await createClientService(clientData);
   return res.status(201).json(client);

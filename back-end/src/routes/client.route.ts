@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  createClientController,
   listClientsController,
   listOneClientController,
 } from "../controllers/client.controller";
@@ -10,7 +11,7 @@ clientRouter.get("", listClientsController);
 
 clientRouter.get("/:id", listOneClientController);
 
-clientRouter.post("");
+clientRouter.post("", createClientController);
 
 clientRouter.patch("/:id");
 
