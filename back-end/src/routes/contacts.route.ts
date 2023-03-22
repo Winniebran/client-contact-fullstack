@@ -1,11 +1,17 @@
 import { Router } from "express";
+import {
+  createContactsController,
+  deleteContactsController,
+  listContactsController,
+  updateContactsController,
+} from "../controllers/contacts.controller";
 
 export const contactsRouter = Router();
 
-contactsRouter.get("");
+contactsRouter.get("", listContactsController);
 
-contactsRouter.post("");
+contactsRouter.post("", createContactsController);
 
-contactsRouter.patch("");
+contactsRouter.patch("/:id", updateContactsController);
 
-contactsRouter.delete("");
+contactsRouter.delete("/:id", deleteContactsController);

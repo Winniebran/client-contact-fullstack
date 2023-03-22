@@ -14,4 +14,6 @@ export const contactResponseSerializer = createContactSerializer.extend({
   updatedAt: z.date(),
 });
 
+export const listContacts = contactResponseSerializer.array();
+
 export const updateContactSerializer = createContactSerializer.partial();
