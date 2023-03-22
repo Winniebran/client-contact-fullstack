@@ -10,4 +10,6 @@ export const typeResponseSerializer = createTypeSerializer.extend({
   updatedAt: z.date(),
 });
 
+export const listTypes = typeResponseSerializer.array();
+
 export const updateTypeSerializer = createTypeSerializer.partial();
