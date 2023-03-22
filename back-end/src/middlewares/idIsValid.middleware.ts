@@ -14,7 +14,7 @@ export const idIsValidMiddleware = async (
     next();
   } catch (error) {
     if (error instanceof z.ZodError) {
-      throw new AppError("Id is not valid", 404);
+      throw new AppError("UUID is not valid", 404);
     }
   }
 };
