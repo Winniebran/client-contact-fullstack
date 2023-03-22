@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createClientController,
+  deleteClientController,
   listClientsController,
   listOneClientController,
   updateClientController,
@@ -16,4 +17,4 @@ clientRouter.post("", createClientController);
 
 clientRouter.patch("/:id", updateClientController);
 
-clientRouter.delete("/:id");
+clientRouter.delete("/:id", deleteClientController);

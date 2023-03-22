@@ -16,7 +16,7 @@ export const updateClientService = async (
   });
 
   if (!foundClient) {
-    throw new AppError("User not found", 404);
+    throw new AppError("Client not found", 404);
   }
 
   const updatedClient = clientRepository.create({
