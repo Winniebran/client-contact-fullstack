@@ -8,7 +8,7 @@ import { createLoginSerializer } from "../serializers/login.serializer";
 
 type IClientRequest = z.infer<typeof createClientSerializer>;
 type IClientResponse = z.infer<typeof clientResponseSerializer>;
-type IClienteUpdate = z.infer<typeof updateClientSerializer>;
-type IClienteLogin = z.infer<typeof createLoginSerializer>;
+type IClientUpdate = z.infer<typeof updateClientSerializer>;
+type IClientLogin = z.infer<typeof createLoginSerializer>;
 
-export { IClientRequest, IClientResponse, IClienteUpdate, IClienteLogin };
+export { IClientRequest, IClientResponse, IClientUpdate, IClientLogin };

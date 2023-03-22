@@ -1,26 +1,12 @@
-export interface IContactRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
-  cellPhone: string;
-  image: string;
-}
+import { z } from "zod";
+import {
+  contactResponseSerializer,
+  createContactSerializer,
+  updateContactSerializer,
+} from "../serializers/contacts.serializer";
 
-export interface IContactResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  cellPhone: string;
-  image: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+type IContactRequest = z.infer<typeof createContactSerializer>;
+type IContactResponse = z.infer<typeof contactResponseSerializer>;
+type IContactUpdate = z.infer<typeof updateContactSerializer>;
 
-export interface IContactUpdate {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  cellPhone?: string;
-  image?: string;
-}
+export { IContactRequest, IContactResponse, IContactUpdate };

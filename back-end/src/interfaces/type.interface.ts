@@ -1,14 +1,12 @@
-export interface ITypeRequest {
-  name: string;
-}
+import { z } from "zod";
+import {
+  createTypeSerializer,
+  typeResponseSerializer,
+  updateTypeSerializer,
+} from "../serializers/type.serializer";
 
-export interface ITypeResponse {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+type ITypeRequest = z.infer<typeof createTypeSerializer>;
+type ITypeResponse = z.infer<typeof typeResponseSerializer>;
+type ITypeUpdate = z.infer<typeof updateTypeSerializer>;
 
-export interface ITypeUpdate {
-  name?: string;
-}
+export { ITypeRequest, ITypeResponse, ITypeUpdate };
