@@ -10,21 +10,21 @@ export const updateContactsService = async (
 ): Promise<IContactResponse> => {
   const contactsRepository = appDataSource.getRepository(Contacts);
 
-  const [foundContacts] = await contactsRepository.find({
-    where: { id: id },
+  const foundContact = await contactsRepository.findOneBy({
+    id: id,
   });
 
-  if (!foundContacts) {
-    throw new AppError("Contacts not found", 404);
+  if (!foundContact) {
+    throw new AppError("Contact not found", 404);
   }
 
-  const updatedContacts = contactsRepository.create({
-    ...foundContacts,
+  const updatedContact = contactsRepository.create({
+    ...foundContact,
     ...contactsData,
   });
-  await contactsRepository.save(updatedContacts);
+  await contactsRepository.save(updatedContact);
 
-  const updateContacts = contactResponseSerializer.parse(updatedContacts);
+  const updateContact = contactResponseSerializer.parse(updatedContact);
 
-  return updateContacts;
+  return updateContact;
 };
