@@ -6,16 +6,28 @@ import {
   listOneClientController,
   updateClientController,
 } from "../controllers/client.controller";
-import { AuthMiddleware } from "../middlewares";
+import { dataIsValidMiddleware } from "../middlewares";
+import {
+  createClientSerializer,
+  updateClientSerializer,
+} from "../serializers/client.serializer";
 
 export const clientRouter = Router();
 
-clientRouter.get("", AuthMiddleware, listClientsController);
+clientRouter.get("", listClientsController);
 
-clientRouter.get("/:id", AuthMiddleware, listOneClientController);
+clientRouter.get("/:id", listOneClientController);
 
-clientRouter.post("", AuthMiddleware, createClientController);
+clientRouter.post(
+  "",
+  dataIsValidMiddleware(createClientSerializer),
+  createClientController
+);
 
-clientRouter.patch("/:id", AuthMiddleware, updateClientController);
+clientRouter.patch(
+  "/:id",
+  dataIsValidMiddleware(updateClientSerializer),
+  updateClientController
+);
 
-clientRouter.delete("/:id", AuthMiddleware, deleteClientController);
+clientRouter.delete("/:id", deleteClientController);
