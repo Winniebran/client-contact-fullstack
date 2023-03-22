@@ -6,6 +6,7 @@ import {
   clientRouter,
   contactsRouter,
   loginRouter,
+  profileRouter,
   typeRouter,
 } from "./routes";
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/client", clientRouter);
 app.use("/login", loginRouter);
+app.use("/profile", profileRouter);
 app.use("/contacts", contactsRouter);
 app.use("/type", typeRouter);
 
