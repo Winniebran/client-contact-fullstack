@@ -1,8 +1,6 @@
-import { Request, Response } from "express";
-import { profileService } from "../../controllers/profile.controller";
+import { IClientResponse } from "../../interfaces";
+import { listOneClientService } from "../client";
 
-export const profileController = async (req: Request, res: Response) => {
-  const clientId: string = req.client.id;
-  const profileClient = await profileService(clientId);
-  return res.json(profileClient);
+export const profileService = async (id: string): Promise<IClientResponse> => {
+  return await listOneClientService(id);
 };

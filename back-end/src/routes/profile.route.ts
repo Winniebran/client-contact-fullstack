@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { profileController } from "../services/profile/profile.service";
+import { profileController } from "../controllers/profile.controller";
+import { AuthMiddleware } from "../middlewares";
 
 export const profileRouter = Router();
 
-profileRouter.get("", profileController);
+profileRouter.get("", AuthMiddleware, profileController);

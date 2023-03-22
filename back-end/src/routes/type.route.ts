@@ -5,13 +5,14 @@ import {
   listTypesController,
   updateTypeController,
 } from "../controllers/type.controller";
+import { AuthMiddleware } from "../middlewares";
 
 export const typeRouter = Router();
 
-typeRouter.get("", listTypesController);
+typeRouter.get("", AuthMiddleware, listTypesController);
 
-typeRouter.post("", createTypeController);
+typeRouter.post("", AuthMiddleware, createTypeController);
 
-typeRouter.patch("/:id", updateTypeController);
+typeRouter.patch("/:id", AuthMiddleware, updateTypeController);
 
-typeRouter.delete("/:id", deleteTypeController);
+typeRouter.delete("/:id", AuthMiddleware, deleteTypeController);
