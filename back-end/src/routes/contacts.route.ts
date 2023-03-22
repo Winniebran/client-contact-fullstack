@@ -5,7 +5,12 @@ import {
   listContactsController,
   updateContactsController,
 } from "../controllers/contacts.controller";
-import { AuthMiddleware, dataIsValidMiddleware, idIsValidMiddleware } from "../middlewares";
+import {
+  AuthMiddleware,
+  dataIsValidMiddleware,
+  idIsValidMiddleware,
+  isValidToUpdateMiddleware,
+} from "../middlewares";
 import {
   createContactSerializer,
   updateContactSerializer,
@@ -25,9 +30,15 @@ contactsRouter.post(
 contactsRouter.patch(
   "/:id",
   AuthMiddleware,
+  isValidToUpdateMiddleware,
   idIsValidMiddleware,
   dataIsValidMiddleware(updateContactSerializer),
   updateContactsController
 );
 
-contactsRouter.delete("/:id", AuthMiddleware, idIsValidMiddleware, deleteContactsController);
+contactsRouter.delete(
+  "/:id",
+  AuthMiddleware,
+  idIsValidMiddleware,
+  deleteContactsController
+);

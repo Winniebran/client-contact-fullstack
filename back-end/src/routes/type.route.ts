@@ -9,6 +9,7 @@ import {
   AuthMiddleware,
   dataIsValidMiddleware,
   idIsValidMiddleware,
+  isValidToUpdateMiddleware,
 } from "../middlewares";
 import {
   createTypeSerializer,
@@ -29,6 +30,7 @@ typeRouter.post(
 typeRouter.patch(
   "/:id",
   AuthMiddleware,
+  isValidToUpdateMiddleware,
   idIsValidMiddleware,
   dataIsValidMiddleware(updateTypeSerializer),
   updateTypeController

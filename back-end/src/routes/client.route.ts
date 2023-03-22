@@ -6,7 +6,11 @@ import {
   listOneClientController,
   updateClientController,
 } from "../controllers/client.controller";
-import { dataIsValidMiddleware, idIsValidMiddleware } from "../middlewares";
+import {
+  dataIsValidMiddleware,
+  idIsValidMiddleware,
+  isValidToUpdateMiddleware,
+} from "../middlewares";
 import {
   createClientSerializer,
   updateClientSerializer,
@@ -26,6 +30,7 @@ clientRouter.post(
 
 clientRouter.patch(
   "/:id",
+  isValidToUpdateMiddleware,
   idIsValidMiddleware,
   dataIsValidMiddleware(updateClientSerializer),
   updateClientController
