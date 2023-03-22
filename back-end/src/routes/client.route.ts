@@ -1,11 +1,17 @@
 import { Router } from "express";
+import {
+  listClientsController,
+  listOneClientController,
+} from "../controllers/client.controller";
 
 export const clientRouter = Router();
 
-clientRouter.get("");
+clientRouter.get("", listClientsController);
+
+clientRouter.get("/:id", listOneClientController);
 
 clientRouter.post("");
 
-clientRouter.patch("");
+clientRouter.patch("/:id");
 
-clientRouter.delete("");
+clientRouter.delete("/:id");
