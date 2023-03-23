@@ -64,6 +64,7 @@ describe("/client", () => {
   });
 
   // POST /client
+
   test("POST /client - Must be able to create a client", async () => {
     const res = await request(app).post("/client").send(mockClient2);
     expect(res.body).toHaveProperty("id");
@@ -87,5 +88,32 @@ describe("/client", () => {
     expect(res.body).toHaveProperty("message");
   });
 
-  
+  // DELETE /client/:id
+
+  test("DELETE /client/:id - Must be able to soft delete client", async () => {
+    const clientTobeDeleted = await request(app).get("/client");
+    const res = await request(app).delete(
+      `/client/${clientTobeDeleted.body[1].id}`
+    );
+    const findClient = await request(app).get("/client");
+
+    expect(res.status).toBe(204);
+    expect(findClient.body[1].isActive).toBe(false);
+  });
+
+  test("DELETE /client/:id - Shouldn't be able to delete client with isActive = false", async () => {
+    const clientTobeDeleted = await request(app).get("/client");
+    const res = await request(app).delete(
+      `/client/${clientTobeDeleted.body[1].id}`
+    );
+
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("DELETE /client/:id - Shouldn't be able to delete client with invalid id", async () => {
+    const res = await request(app).delete(`/client/1`);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("message");
+  });
 });
