@@ -108,12 +108,77 @@ describe("/contacts", () => {
     expect(res.status).toBe(204);
   });
 
-  test("DELETE /contacts/:id - Shouldn't be able to delete user with invalid id", async () => {
+  test("DELETE /contacts/:id - Shouldn't be able to delete contact with invalid id", async () => {
     const clientLogin = await request(app).post("/login").send(mockClient);
     const res = await request(app)
       .delete(`/contacts/1`)
       .set("Authorization", `Bearer ${clientLogin.body.token}`);
     expect(res.status).toBe(404);
     expect(res.body).toHaveProperty("message");
+  });
+
+  // UPDATE /contacts/:id
+
+  test("PATCH /contacts/:id - Shouldn't be able to update contact without authentication", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const updatedContact = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    const res = await request(app).patch(
+      `/contacts/${updatedContact.body[0].id}`
+    );
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /contacts/:id - Shouldn't be able to update contact with invalid id", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const valuesToBeUpdated = {
+      email: "marcia@mail.com",
+      cellPhone: "(71) 91111-1111",
+    };
+    const res = await request(app)
+      .patch(`/contacts/1`)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`)
+      .send(valuesToBeUpdated);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /contacts/:id - Shouldn't be able to update id field value", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const contactToBeUpdated = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    const valuesToBeUpdated = { id: 1 };
+    const res = await request(app)
+      .patch(`/contacts/${contactToBeUpdated.body[0].id}`)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`)
+      .send(valuesToBeUpdated);
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /contacts/:id - Should be able to update a contact", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const contactToBeUpdated = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+
+    const valuesToBeUpdated = {
+      email: "marcia@mail.com",
+      cellPhone: "(71) 91111-1111",
+    };
+    const res = await request(app)
+      .patch(`/contacts/${contactToBeUpdated.body[0].id}`)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`)
+      .send(valuesToBeUpdated);
+
+    const updatedContact = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    expect(res.status).toBe(200);
+    expect(updatedContact.body[0].email).toEqual("marcia@mail.com");
+    expect(updatedContact.body[0].cellPhone).toEqual("(71) 91111-1111");
   });
 });
