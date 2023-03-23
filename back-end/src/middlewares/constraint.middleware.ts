@@ -17,18 +17,16 @@ export const constraintMiddleware = async (
     where: { email: email },
     withDeleted: true,
   });
-  const emailExistsContact = await contactRepository.findOne({
-    where: { email: email },
-    withDeleted: true,
+  const emailExistsContact = await contactRepository.findOneBy({
+    email: email,
   });
 
   const cellPhoneExistsClient = await clientRepository.findOne({
     where: { cellPhone: cellPhone },
     withDeleted: true,
   });
-  const cellPhoneExistsContact = await contactRepository.findOne({
-    where: { cellPhone: cellPhone },
-    withDeleted: true,
+  const cellPhoneExistsContact = await contactRepository.findOneBy({
+    cellPhone: cellPhone,
   });
 
   if (emailExistsClient || emailExistsContact) {

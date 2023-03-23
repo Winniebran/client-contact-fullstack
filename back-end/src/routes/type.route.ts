@@ -11,6 +11,7 @@ import {
   idIsValidMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
+import { isTypeExistsMiddleware } from "../middlewares/isTypeExists.middleware";
 import {
   createTypeSerializer,
   updateTypeSerializer,
@@ -23,6 +24,7 @@ typeRouter.get("", AuthMiddleware, listTypesController);
 typeRouter.post(
   "",
   AuthMiddleware,
+  isTypeExistsMiddleware,
   dataIsValidMiddleware(createTypeSerializer),
   createTypeController
 );
@@ -32,6 +34,7 @@ typeRouter.patch(
   AuthMiddleware,
   isValidToUpdateMiddleware,
   idIsValidMiddleware,
+  isTypeExistsMiddleware,
   dataIsValidMiddleware(updateTypeSerializer),
   updateTypeController
 );
