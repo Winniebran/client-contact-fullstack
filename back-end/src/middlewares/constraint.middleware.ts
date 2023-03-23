@@ -13,21 +13,28 @@ export const constraintMiddleware = async (
   const clientRepository = appDataSource.getRepository(Client);
   const contactRepository = appDataSource.getRepository(Contacts);
 
-  const emailExistsClient = await clientRepository.findOne({
-    where: { email: email },
-    withDeleted: true,
-  });
-  const emailExistsContact = await contactRepository.findOneBy({
-    email: email,
-  });
+  const emailExistsClient = await clientRepository
+    .createQueryBuilder("client")
+    .withDeleted()
+    .where("client.email = :email", { email: email })
+    .getOne();
 
-  const cellPhoneExistsClient = await clientRepository.findOne({
-    where: { cellPhone: cellPhone },
-    withDeleted: true,
-  });
-  const cellPhoneExistsContact = await contactRepository.findOneBy({
-    cellPhone: cellPhone,
-  });
+  const emailExistsContact = await contactRepository
+    .createQueryBuilder("contacts")
+    .where("contacts.email = :email", { email: email })
+    .getOne();
+
+  console.log(cellPhone);
+  const cellPhoneExistsClient = await clientRepository
+    .createQueryBuilder("client")
+    .withDeleted()
+    .where("client.cellPhone = :cellPhone", { cellPhone: cellPhone })
+    .getOne();
+
+  const cellPhoneExistsContact = await contactRepository
+    .createQueryBuilder("contacts")
+    .where("contacts.cellPhone = :cellPhone", { cellPhone: cellPhone })
+    .getOne();
 
   if (emailExistsClient || emailExistsContact) {
     throw new AppError("Email already registered", 409);
