@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import appDataSource from "../../data-source";
 import request from "supertest";
 import { app } from "../../app";
-import { mockContact } from "../mocks/contacts.mocks";
+import { mockContact, mockContact2 } from "../mocks/contacts.mocks";
 import { mockClient } from "../mocks/clients.mocks";
 
 describe("/contacts", () => {
@@ -74,6 +74,46 @@ describe("/contacts", () => {
   test("GET /contacts - Shouldn't be able to list contacts without authentication", async () => {
     const res = await request(app).get("/contacts");
     expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  // DELETE /contacts/:id
+
+  test("DELETE /contacts/:id - Shouldn't be able to delete contact without authentication", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const contactTobeDeleted = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    const res = await request(app).delete(
+      `/contacts/${contactTobeDeleted.body[0].id}`
+    );
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("DELETE /contacts/:id - Must be able to delete contact", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    await request(app)
+      .post("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`)
+      .send(mockContact2);
+    const contactTobeDeleted = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    const res = await request(app)
+      .delete(`/contacts/${contactTobeDeleted.body[1].id}`)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    console.log(contactTobeDeleted);
+
+    expect(res.status).toBe(204);
+  });
+
+  test("DELETE /contacts/:id - Shouldn't be able to delete user with invalid id", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const res = await request(app)
+      .delete(`/contacts/1`)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    expect(res.status).toBe(404);
     expect(res.body).toHaveProperty("message");
   });
 });
