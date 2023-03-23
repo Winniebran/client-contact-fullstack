@@ -2,11 +2,7 @@ import { DataSource } from "typeorm";
 import appDataSource from "../../data-source";
 import request from "supertest";
 import { app } from "../../app";
-import {
-  mockClient,
-  mockClient2,
-  mockClientLogin,
-} from "../mocks/clients.mocks";
+import { mockClient, mockClient2 } from "../mocks/clients.mocks";
 
 describe("/client", () => {
   let connection: DataSource;
@@ -115,5 +111,54 @@ describe("/client", () => {
     const res = await request(app).delete(`/client/1`);
     expect(res.status).toBe(404);
     expect(res.body).toHaveProperty("message");
+  });
+
+  // UPDATE /client/:id
+
+  test("PATCH /client/:id - Shouldn't be able to update client with invalid id", async () => {
+    const valuesToBeUpdated = {
+      email: "daniel@mail.com",
+      cellPhone: "(71) 99356-7253",
+    };
+    const res = await request(app).patch(`/client/1`).send(valuesToBeUpdated);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /client/:id - Shouldn't be able to update isActive field value", async () => {
+    const clientToBeUpdated = await request(app).get("/client");
+    const valuesToBeUpdated = { isActive: false };
+    const res = await request(app)
+      .patch(`/client/${clientToBeUpdated.body[0].id}`)
+      .send(valuesToBeUpdated);
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /client/:id - Shouldn't be able to update id field value", async () => {
+    const clientToBeUpdated = await request(app).get("/client");
+    const valuesToBeUpdated = { id: 1 };
+    const res = await request(app)
+      .patch(`/client/${clientToBeUpdated.body[0].id}`)
+      .send(valuesToBeUpdated);
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  test("PATCH /client/:id - Should be able to update itself and another client", async () => {
+    const clientToBeUpdated = await request(app).get("/client");
+    const valuesToBeUpdated = {
+      email: "daniel@mail.com",
+      cellPhone: "(71) 99356-7253",
+    };
+    const res = await request(app)
+      .patch(`/client/${clientToBeUpdated.body[0].id}`)
+      .send(valuesToBeUpdated);
+
+    const updatedClient = await request(app).get("/client");
+    expect(res.status).toBe(200);
+    expect(updatedClient.body[0].email).toEqual("daniel@mail.com");
+    expect(updatedClient.body[0].cellPhone).toEqual("(71) 99356-7253");
+    expect(updatedClient.body[0]).not.toHaveProperty("password");
   });
 });
