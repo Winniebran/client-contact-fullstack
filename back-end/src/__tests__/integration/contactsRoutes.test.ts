@@ -54,8 +54,26 @@ describe("/contacts", () => {
       .post("/contacts")
       .set("Authorization", `Bearer ${clientLogin.body.token}`)
       .send(mockContact);
-      
+
     expect(res.status).toBe(409);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  // GET /contacts
+
+  test("GET /contacts - Must be able to list contacts", async () => {
+    const clientLogin = await request(app).post("/login").send(mockClient);
+    const res = await request(app)
+      .get("/contacts")
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(1);
+    expect(res.body[0]).not.toHaveProperty("password");
+  });
+
+  test("GET /contacts - Shouldn't be able to list contacts without authentication", async () => {
+    const res = await request(app).get("/contacts");
+    expect(res.status).toBe(401);
     expect(res.body).toHaveProperty("message");
   });
 });
