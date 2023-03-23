@@ -2,7 +2,7 @@ import { IClientLogin, IClientRequest } from "../../interfaces";
 
 export const mockClient: IClientRequest = {
   firstName: "Cliente",
-  lastName: "One",
+  lastName: "Um",
   email: "cliente1@mail.com",
   password: "12345Aa@",
   cellPhone: "(71) 99999-9999",
