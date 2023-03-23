@@ -7,11 +7,11 @@ import {
 } from "../controllers/contacts.controller";
 import {
   AuthMiddleware,
+  constraintMiddleware,
   dataIsValidMiddleware,
   idIsValidMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
-import { constraintMiddleware } from "../middlewares/constraint.middleware";
 import {
   createContactSerializer,
   updateContactSerializer,

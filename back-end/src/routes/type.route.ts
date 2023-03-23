@@ -9,9 +9,9 @@ import {
   AuthMiddleware,
   dataIsValidMiddleware,
   idIsValidMiddleware,
+  isTypeExistsMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
-import { isTypeExistsMiddleware } from "../middlewares/isTypeExists.middleware";
 import {
   createTypeSerializer,
   updateTypeSerializer,

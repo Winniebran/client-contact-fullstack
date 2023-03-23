@@ -7,11 +7,11 @@ import {
   updateClientController,
 } from "../controllers/client.controller";
 import {
+  constraintMiddleware,
   dataIsValidMiddleware,
   idIsValidMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
-import { constraintMiddleware } from "../middlewares/constraint.middleware";
 import {
   createClientSerializer,
   updateClientSerializer,
