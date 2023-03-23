@@ -11,6 +11,7 @@ import {
   idIsValidMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
+import { constraintMiddleware } from "../middlewares/constraint.middleware";
 import {
   createContactSerializer,
   updateContactSerializer,
@@ -23,6 +24,7 @@ contactsRouter.get("", AuthMiddleware, listContactsController);
 contactsRouter.post(
   "",
   AuthMiddleware,
+  constraintMiddleware,
   dataIsValidMiddleware(createContactSerializer),
   createContactsController
 );
@@ -32,6 +34,7 @@ contactsRouter.patch(
   AuthMiddleware,
   isValidToUpdateMiddleware,
   idIsValidMiddleware,
+  constraintMiddleware,
   dataIsValidMiddleware(updateContactSerializer),
   updateContactsController
 );

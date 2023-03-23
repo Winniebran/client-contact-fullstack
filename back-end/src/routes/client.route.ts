@@ -11,6 +11,7 @@ import {
   idIsValidMiddleware,
   isValidToUpdateMiddleware,
 } from "../middlewares";
+import { constraintMiddleware } from "../middlewares/constraint.middleware";
 import {
   createClientSerializer,
   updateClientSerializer,
@@ -24,6 +25,7 @@ clientRouter.get("/:id", idIsValidMiddleware, listOneClientController);
 
 clientRouter.post(
   "",
+  constraintMiddleware,
   dataIsValidMiddleware(createClientSerializer),
   createClientController
 );
@@ -32,6 +34,7 @@ clientRouter.patch(
   "/:id",
   isValidToUpdateMiddleware,
   idIsValidMiddleware,
+  constraintMiddleware,
   dataIsValidMiddleware(updateClientSerializer),
   updateClientController
 );
