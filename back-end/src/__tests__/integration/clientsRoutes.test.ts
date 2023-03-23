@@ -2,7 +2,11 @@ import { DataSource } from "typeorm";
 import appDataSource from "../../data-source";
 import request from "supertest";
 import { app } from "../../app";
-import { mockClient, mockClientLogin } from "../mocks/clients.mocks";
+import {
+  mockClient,
+  mockClient2,
+  mockClientLogin,
+} from "../mocks/clients.mocks";
 
 describe("/client", () => {
   let connection: DataSource;
@@ -58,4 +62,30 @@ describe("/client", () => {
     expect(res.status).toBe(404);
     expect(res.body).toHaveProperty("message");
   });
+
+  // POST /client
+  test("POST /client - Must be able to create a client", async () => {
+    const res = await request(app).post("/client").send(mockClient2);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("firstName");
+    expect(res.body).toHaveProperty("lastName");
+    expect(res.body).toHaveProperty("email");
+    expect(res.body).toHaveProperty("cellPhone");
+    expect(res.body).toHaveProperty("isActive");
+    expect(res.body).toHaveProperty("createdAt");
+    expect(res.body).toHaveProperty("updatedAt");
+    expect(res.body).toHaveProperty("deletedAt");
+    expect(res.body).not.toHaveProperty("password");
+    expect(res.body.email).toEqual("cliente2@mail.com");
+    expect(res.body.cellPhone).toEqual("(71) 97777-7777");
+    expect(res.status).toBe(201);
+  });
+
+  test("POST /client - Shouldn't be able to create a client that already exists", async () => {
+    const res = await request(app).post("/client").send(mockClient);
+    expect(res.status).toBe(409);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  
 });
