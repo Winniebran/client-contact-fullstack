@@ -6,11 +6,11 @@ import {
   IClientLogin,
   IClientRegister,
 } from "../interfaces/client.interface";
-import { IChildren, iClientContext } from "../interfaces/contexts.interface";
+import { IChildren, IClientContext } from "../interfaces/contexts.interface";
 import { ApiRequests } from "../services/ApiRequest";
 import toast from "react-hot-toast";
 
-export const ClientContext = createContext({} as iClientContext);
+export const ClientContext = createContext({} as IClientContext);
 
 export const ClientProvider = ({ children }: IChildren) => {
   const [client, setClient] = useState<IClient | null>(null);
@@ -27,7 +27,7 @@ export const ClientProvider = ({ children }: IChildren) => {
     } catch (error) {
       console.log(error);
       toast.error("E-mail já cadastrado");
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -37,8 +37,7 @@ export const ClientProvider = ({ children }: IChildren) => {
       setLoading(true);
       const response = await ApiRequests.post("/login", data);
       localStorage.setItem("@contactland:token", response.data.token);
-      localStorage.setItem("contactland:id", response.data.client.id);
-      setClient(response.data.client);
+      setClient(response.data);
       navigate("/dashboard");
       toast.success("Login realizado com sucesso.");
     } catch (error) {
@@ -53,8 +52,21 @@ export const ClientProvider = ({ children }: IChildren) => {
     setClient(null);
 
     localStorage.removeItem("@contactland:token");
-    localStorage.removeItem("@contactland:id");
   };
 
-  return <ClientContext.Provider value={{loading, setLoading, client, setClient, clientLogin, clientLogout, clientRegister}}>{children}</ClientContext.Provider>;
+  return (
+    <ClientContext.Provider
+      value={{
+        loading,
+        setLoading,
+        client,
+        setClient,
+        clientLogin,
+        clientLogout,
+        clientRegister,
+      }}
+    >
+      {children}
+    </ClientContext.Provider>
+  );
 };

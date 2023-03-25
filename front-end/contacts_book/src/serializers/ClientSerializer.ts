@@ -19,5 +19,10 @@ export const registerClientSerializer = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirm"],
+    path: ["confirmPassword"],
   });
+
+export const loginClientSerializer = z.object({
+  email: z.string().trim().nonempty("Email is required").email("Invalid email format"),
+  password: z.string().trim().nonempty("Password is required"),
+});

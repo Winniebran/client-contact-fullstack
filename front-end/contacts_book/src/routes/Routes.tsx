@@ -7,16 +7,15 @@ import { RegisterPage } from "../pages/RegisterPage/RegisterPage";
 
 import { ProtectRoutes } from "./ProtectRoutes";
 
-
 export const MainRoutes = () => {
-    return (
-        <Routes>
-            <Route path="/" element={<LoginPage />}/>
-            <Route path="/register" element={<RegisterPage />}/>
-            <Route element={<ProtectRoutes />}>
-                <Route path="/dashboard" element={<DashboardPage />}/>
-            </Route>
-            <Route path="*" element={<NotFound />}/>
-        </Routes>
-    )
-}
+  return (
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route element={<ProtectRoutes />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};

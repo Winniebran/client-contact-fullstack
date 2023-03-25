@@ -1,4 +1,3 @@
 export const DashboardPage = () => {
-    return(<>
-        </>)
+    return(<h1> Olá!!</h1>)
 };

@@ -4,7 +4,7 @@ export interface IChildren {
     children: React.ReactNode;
 }
 
-export interface iClientContext {
+export interface IClientContext {
     loading: boolean;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     client: IClient | null;

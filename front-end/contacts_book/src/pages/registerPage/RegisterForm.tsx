@@ -21,7 +21,7 @@ export const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(clientRegister)}>
-      <div className="inputs-login">
+      <div>
         <div>
           <FiUser />
           <input
@@ -102,10 +102,10 @@ export const RegisterForm = () => {
 
       <div className="button-login">
         <button>Cadastrar</button>
-        <span>
+        <p>
           Já possui uma conta?
           <Link to={"/"}>Faça Login!</Link>
-        </span>
+        </p>
       </div>
     </form>
   );
