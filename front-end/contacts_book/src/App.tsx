@@ -3,7 +3,7 @@ import "./App.css";
 import { ClientProvider } from "./contexts/ClientContext";
 import { MainRoutes } from "./routes/Routes";
 
-function App() {
+const App = () => {
   return (
     <>
       <Toaster

@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
 import { NotFound } from "../components/NotFound/NotFound";
-import { DashboardPage } from "../pages/dashboardPage/dashboardPage";
-import { LoginPage } from "../pages/loginPage/loginPage";
-import { RegisterPage } from "../pages/registerPage/registerPage";
+import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
+import { LoginPage } from "../pages/LoginPage/LoginPage";
+import { RegisterPage } from "../pages/RegisterPage/RegisterPage";
+
 import { ProtectRoutes } from "./ProtectRoutes";
 
 

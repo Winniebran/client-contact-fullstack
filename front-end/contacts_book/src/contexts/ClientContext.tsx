@@ -19,7 +19,6 @@ export const ClientProvider = ({ children }: IChildren) => {
   const navigate = useNavigate();
 
   const clientRegister = async (data: IClientRegister) => {
-    delete data.confirmPassword;
     try {
       setLoading(true);
       await ApiRequests.post("/client", data);
@@ -28,7 +27,6 @@ export const ClientProvider = ({ children }: IChildren) => {
     } catch (error) {
       console.log(error);
       toast.error("E-mail já cadastrado");
-      //   reponse.data.message
     }finally{
       setLoading(false);
     }
