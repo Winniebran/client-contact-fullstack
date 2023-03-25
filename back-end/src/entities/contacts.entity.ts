@@ -1,19 +1,16 @@
-import { hash } from "bcryptjs";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Contacts } from "./contacts.entity";
+import { Client } from "./client.entity";
+import { Type } from "./type.entity";
 
-@Entity("client")
-export class Client {
+@Entity("contacts")
+export class Contacts {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -26,9 +23,6 @@ export class Client {
   @Column({ length: 50, unique: true })
   email: string;
 
-  @Column({ length: 150 })
-  password: string;
-
   @Column({ length: 20, unique: true })
   cellPhone: string;
 
@@ -40,26 +34,15 @@ export class Client {
   })
   image?: string | null;
 
-  @Column({ default: true })
-  isActive: boolean;
-
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @ManyToOne(() => Client, (client) => client.contacts)
+  client: Client;
 
-  @BeforeUpdate()
-  @BeforeInsert()
-  async hashPassword() {
-    if (this.password) {
-      this.password = await hash(this.password, 10);
-    }
-  }
-
-  @OneToMany(() => Contacts, (contacts) => contacts.client)
-  contacts: Contacts[];
+  @ManyToOne(() => Type, (type) => type.contacts)
+  type: Type;
 }
