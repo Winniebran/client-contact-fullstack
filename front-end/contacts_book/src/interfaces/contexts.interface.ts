@@ -21,10 +21,12 @@ export interface IContactContext {
   setContact: React.Dispatch<React.SetStateAction<IContact[] | null>>;
   showAddContact: boolean;
   setShowAddContact: React.Dispatch<React.SetStateAction<boolean>>;
-  showEditAndDeleteContact: boolean;
-  setShowEditAndDeleteContact: React.Dispatch<React.SetStateAction<boolean>>;
+  showEditContact: boolean;
+  setShowEditContact: React.Dispatch<React.SetStateAction<boolean>>;
+  showDeleteContact: boolean;
+  setShowDeleteContact: React.Dispatch<React.SetStateAction<boolean>>;
   // listContact: () => void;
-  createContact: (data: ICreateContact) => Promise<void>;
+  createContact: (data: IContact) => Promise<void>;
   // updateContact: (data: IUpdateContact, id: string) => Promise<void>;
   // deleteContact: (id: string) => Promise<void>;
 }
@@ -34,10 +36,12 @@ export interface ITypeContext {
   setType: React.Dispatch<React.SetStateAction<IType[] | null>>;
   showAddType: boolean;
   setShowAddType: React.Dispatch<React.SetStateAction<boolean>>;
-  showEditAndDeleteType: boolean;
-  setShowEditAndDeleteType: React.Dispatch<React.SetStateAction<boolean>>;
-  // listType: () => void;
-  createType: (data: ICreateType) => Promise<void>;
+  showEditType: boolean;
+  setShowEditType: React.Dispatch<React.SetStateAction<boolean>>;
+  showDeleteType: boolean;
+  setShowDeleteType: React.Dispatch<React.SetStateAction<boolean>>;
+  listType: () => void;
+  createType: (data: IType) => Promise<void>;
   // updateType: (data: IUpdateType, id: string) => Promise<void>;
   // deleteType: (id: string) => Promise<void>;
 }

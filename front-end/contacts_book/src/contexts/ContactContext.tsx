@@ -9,14 +9,13 @@ import { ClientContext } from "./ClientContext";
 export const ContactContext = createContext({} as IContactContext);
 
 export const ContactProvider = ({ children }: IChildren) => {
-  const { client, setClient } = useContext(ClientContext);
 
   const [contact, setContact] = useState<IContact[] | null>(null);
   const [showAddContact, setShowAddContact] = useState(false);
-  const [showEditAndDeleteContact, setShowEditAndDeleteContact] =
-    useState(false);
+  const [showEditContact, setShowEditContact] = useState(false);
+  const [showDeleteContact, setShowDeleteContact] = useState(false);
 
-  const createContact = async (data: ICreateContact) => {
+  const createContact = async (data: IContact) => {
     try {
       const response = await ApiRequests.post("/contacts", data);
       toast.success("Contato criado com sucesso.");
@@ -38,8 +37,10 @@ export const ContactProvider = ({ children }: IChildren) => {
         createContact,
         showAddContact,
         setShowAddContact,
-        showEditAndDeleteContact,
-        setShowEditAndDeleteContact,
+        showEditContact,
+        setShowEditContact,
+        showDeleteContact,
+        setShowDeleteContact,
       }}
     >
       {children}

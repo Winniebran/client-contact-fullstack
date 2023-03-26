@@ -1,3 +1,5 @@
+import { IType } from "./type.interface";
+
 export interface IContact {
     id: string;
     firstName: string;
@@ -7,6 +9,7 @@ export interface IContact {
     image?: string;
     createdAt: Date;
     updatedAt: Date;
+    type: IType;
 }
   
 export interface ICreateContact {

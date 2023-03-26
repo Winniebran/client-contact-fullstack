@@ -9,9 +9,10 @@ export const TypeContext = createContext({} as ITypeContext);
 export const TypeProvider = ({ children }: IChildren) => {
   const [type, setType] = useState<IType[] | null>(null);
   const [showAddType, setShowAddType] = useState(false);
-  const [showEditAndDeleteType, setShowEditAndDeleteType] = useState(false);
+  const [showEditType, setShowEditType] = useState(false);
+  const [showDeleteType, setShowDeleteType] = useState(false);
 
-  const createType = async (data: ICreateType) => {
+  const createType = async (data: IType) => {
     try {
       const response = await ApiRequests.post("/type", data);
       toast.success("Filtro criado com sucesso.");
@@ -25,6 +26,15 @@ export const TypeProvider = ({ children }: IChildren) => {
     }
   };
 
+  const listType = async () => {
+    try {
+      const response = await ApiRequests.get("/type");
+      setType(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <TypeContext.Provider
       value={{
@@ -32,9 +42,12 @@ export const TypeProvider = ({ children }: IChildren) => {
         setType,
         showAddType,
         setShowAddType,
-        showEditAndDeleteType,
-        setShowEditAndDeleteType,
+        showEditType,
+        setShowEditType,
+        showDeleteType,
+        setShowDeleteType,
         createType,
+        listType
       }}
     >
       {children}
