@@ -1,4 +1,5 @@
 import { IClient, IClientLogin, IClientRegister } from "./client.interface";
+import { IContact, ICreateContact, IUpdateContact } from "./contact.interface";
 
 export interface IChildren {
     children: React.ReactNode;
@@ -12,4 +13,13 @@ export interface IClientContext {
     clientLogin: (data: IClientLogin) => Promise<void>;
     clientLogout: () => void;
     clientRegister: (data: IClientRegister) => Promise<void>;
-  }
+}
+
+export interface IContactContext {
+    contact: IContact | null;
+    setContact: React.Dispatch<React.SetStateAction<IContact | null>>;
+    // listContact: () => void;
+    // createContact: (data: ICreateContact) => Promise<void>;
+    // updateContact: (data: IUpdateContact, id: string) => Promise<void>;
+    // deleteContact: (id: string) => Promise<void>;
+}

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import {
@@ -50,9 +50,25 @@ export const ClientProvider = ({ children }: IChildren) => {
 
   const clientLogout = () => {
     setClient(null);
-
     localStorage.removeItem("@contactland:token");
+    toast("Desconectado com sucesso!");
+    navigate("/");
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("@contactland:token");
+    !token && navigate("/");
+
+    const profile = async () => {
+      try {
+        const response = await ApiRequests.get("/profile");
+        setClient(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    profile();
+  }, []);
 
   return (
     <ClientContext.Provider

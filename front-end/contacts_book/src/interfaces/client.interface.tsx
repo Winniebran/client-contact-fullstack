@@ -1,7 +1,15 @@
 export interface IClient {
   id: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  confirmPassword?: string;
+  cellPhone: string;
+  image?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
 export interface IClientLogin {
@@ -18,3 +26,4 @@ export interface IClientRegister {
   cellPhone: string;
   image?: string;
 }
+

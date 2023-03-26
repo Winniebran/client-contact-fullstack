@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { contactResponseSerializer } from "./contacts.serializer";
 
 export const createClientSerializer = z.object({
   firstName: z.string().min(2).trim(),
