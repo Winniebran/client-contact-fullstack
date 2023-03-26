@@ -9,6 +9,7 @@ import { ContactContext } from "../../contexts/ContactContext";
 import { TypeContext } from "../../contexts/TypeContext";
 import NoCard from "../../assets/NoCard.svg";
 import { AddContactModal } from "../../components/Modal/ModalContact/AddContactModal";
+import { AddTypeModal } from "../../components/Modal/ModalType/AddTypeModal";
 
 export const DashboardPage = () => {
   const { contact, showAddContact, setShowAddContact } =
@@ -19,20 +20,32 @@ export const DashboardPage = () => {
     <main>
       <section>
         <div>
-          <button onClick={() => setShowAddContact(true)}><CgUserAdd /> Adicionar contato</button>
-          <button><CgUserList /> Listar contatos</button>
-          <button><HiOutlineDocumentReport /> Relatório</button>
+          <button onClick={() => setShowAddContact(true)}>
+            <CgUserAdd /> Adicionar contato
+          </button>
+          <button>
+            <CgUserList /> Listar contatos
+          </button>
+          <button>
+            <HiOutlineDocumentReport /> Relatório
+          </button>
         </div>
         <div>
           <h3>Meus Filtros:</h3>
-          <button onClick={() => setShowAddType(true)}><IoAddCircleOutline /></button>
-          <button><GrEdit /></button>
-          <button><IoRemoveCircleOutline /></button>
+          <button onClick={() => setShowAddType(true)}>
+            <IoAddCircleOutline />
+          </button>
+          <button>
+            <GrEdit />
+          </button>
+          <button>
+            <IoRemoveCircleOutline />
+          </button>
           {!type?.length ? (
             <p> Ainda não possui nenhum filtro!</p>
           ) : (
             <ul>
-              {type.map((type) => (
+              {type?.map((type) => (
                 <TypeCard type={type} key={type.id} />
               ))}
             </ul>
@@ -41,20 +54,20 @@ export const DashboardPage = () => {
       </section>
       <section>
         {!contact?.length ? (
-        <>
-          <p> Ainda não possui nenhum contato cadastrado!</p>
-          <img className="transactions-blank-img" src={NoCard} alt="" />
-        </>
+          <>
+            <p> Ainda não possui nenhum contato cadastrado!</p>
+            <img src={NoCard} alt="" />
+          </>
         ) : (
           <ul>
-            {contact.map((contact) => (
-              <ContactCard contact={contact} key={contact.id} />
+            {contact?.map((contact) => (
+              <ContactCard contact={contact} key={contact?.id} />
             ))}
           </ul>
         )}
       </section>
       {showAddContact && <AddContactModal />}
-      {/* {showAddType && <EditAndDeleteTechModal />} */}
+      {showAddType && <AddTypeModal />}
     </main>
   );
 };

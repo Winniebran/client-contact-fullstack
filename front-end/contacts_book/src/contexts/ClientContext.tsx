@@ -55,20 +55,20 @@ export const ClientProvider = ({ children }: IChildren) => {
     navigate("/");
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("@contactland:token");
-    !token && navigate("/");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("@contactland:token");
+  //   !token && navigate("/");
 
-    const profile = async () => {
-      try {
-        const response = await ApiRequests.get("/profile");
-        setClient(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    profile();
-  }, []);
+  //   const profile = async () => {
+  //     try {
+  //       const response = await ApiRequests.get("/profile");
+  //       setClient(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   profile();
+  // }, []);
 
   return (
     <ClientContext.Provider

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { IChildren, ITypeContext } from "../interfaces/contexts.interface";
 import { ICreateType, IType } from "../interfaces/type.interface";
@@ -18,7 +18,7 @@ export const TypeProvider = ({ children }: IChildren) => {
       toast.success("Filtro criado com sucesso.");
       setShowAddType(false);
       if (type) {
-        setType(response.data);
+        setType([...type, response.data]);
       }
     } catch (error) {
       console.log(error);
@@ -26,14 +26,17 @@ export const TypeProvider = ({ children }: IChildren) => {
     }
   };
 
-  const listType = async () => {
-    try {
-      const response = await ApiRequests.get("/type");
-      setType(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const listType = async () => {
+      try {
+        const response = await ApiRequests.get("/type");
+        setType([...response.data]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    listType();
+  }, []);
 
   return (
     <TypeContext.Provider
@@ -47,7 +50,6 @@ export const TypeProvider = ({ children }: IChildren) => {
         showDeleteType,
         setShowDeleteType,
         createType,
-        listType
       }}
     >
       {children}

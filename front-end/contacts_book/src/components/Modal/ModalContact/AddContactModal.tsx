@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { ContactContext } from "../../../contexts/ContactContext";
 import { IContact } from "../../../interfaces/contact.interface";
-import { createContacts } from "../../../serializers/ContactSerializers";
+import { createContactSerializer } from "../../../serializers/ContactSerializers";
 import { TypeContext } from "../../../contexts/TypeContext";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { FiPhone, FiImage, FiUser, FiMail } from "react-icons/fi";
+import { FiPhone, FiImage, FiUser, FiMail, FiFilter } from "react-icons/fi";
 
 export const AddContactModal = () => {
   const { createContact, setShowAddContact } = useContext(ContactContext);
@@ -19,13 +19,13 @@ export const AddContactModal = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IContact>({
-    resolver: zodResolver(createContacts),
+    resolver: zodResolver(createContactSerializer),
   });
 
   return (
     <section>
       <div>
-        <h2> Cadastrar novo contato </h2>
+        <h2> Adicionar novo contato </h2>
         <button type="button" onClick={() => setShowAddContact(false)}>
           <AiOutlineCloseCircle />
         </button>
@@ -81,10 +81,15 @@ export const AddContactModal = () => {
         <span>{errors.cellPhone?.message}</span>
 
         <div>
-          <label htmlFor="type">Filtro</label>
+          <label htmlFor="type">Tipo de contato</label>
+          <FiFilter />
           <select id="type" {...register("type")}>
             <optgroup label="Selecione o tipo">
-            {type && type.map((type) => <option key={type.id}>{type.name}</option>)}
+              {type?.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
             </optgroup>
           </select>
         </div>
@@ -102,7 +107,7 @@ export const AddContactModal = () => {
         </div>
         <span>{errors.image?.message}</span>
 
-        <button>Adicionar contato</button>
+        <button>Adicionar</button>
       </form>
     </section>
   );

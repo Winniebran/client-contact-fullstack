@@ -1,6 +1,8 @@
 export interface IType {
   id: string;
   name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ICreateType {
