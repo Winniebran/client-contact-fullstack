@@ -9,17 +9,6 @@ export const createClientService = async (
 ): Promise<IClientResponse> => {
   const clientRepository = appDataSource.getRepository(Client);
 
-  const clientAlreadyExists = await clientRepository.findOne({
-    where: {
-      email: clientData.email,
-      cellPhone: clientData.cellPhone
-    } 
-  })
-
-  if (clientAlreadyExists) {
-    throw new AppError("Client already exists!", 409);
-  }
-
   const client = clientRepository.create(clientData);
   await clientRepository.save(client);
   const clientWithoutPassword = clientResponseSerializer.parse(client);
