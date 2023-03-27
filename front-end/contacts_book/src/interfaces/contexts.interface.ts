@@ -26,8 +26,8 @@ export interface IContactContext {
   showDeleteContact: boolean;
   setShowDeleteContact: React.Dispatch<React.SetStateAction<boolean>>;
   createContact: (data: IContact) => Promise<void>;
-  // updateContact: (data: IUpdateContact, id: string) => Promise<void>;
-  // deleteContact: (id: string) => Promise<void>;
+  updateContact: (data: IUpdateContact, id: string) => Promise<void>;
+  deleteContact: (id: string) => Promise<void>;
 }
 
 export interface ITypeContext {

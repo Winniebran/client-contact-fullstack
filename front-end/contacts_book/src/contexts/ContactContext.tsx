@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { IContact, ICreateContact } from "../interfaces/contact.interface";
+import {
+  IContact,
+  ICreateContact,
+  IUpdateContact,
+} from "../interfaces/contact.interface";
 import { IChildren, IContactContext } from "../interfaces/contexts.interface";
 import { ApiRequests } from "../services/ApiRequest";
 import { ClientContext } from "./ClientContext";
@@ -15,7 +19,6 @@ export const ContactProvider = ({ children }: IChildren) => {
   const [showDeleteContact, setShowDeleteContact] = useState(false);
 
   const createContact = async (data: IContact) => {
-    console.log(data);
     try {
       const response = await ApiRequests.post("/contacts", data);
       toast.success("Contato criado com sucesso.");
@@ -26,6 +29,44 @@ export const ContactProvider = ({ children }: IChildren) => {
     } catch (error) {
       console.log(error);
       toast.error("Esse contato já foi criado, é possível editá-lo.");
+    }
+  };
+
+  const updateContact = async (data: IUpdateContact, id: string) => {
+    try {
+      const response = await ApiRequests.patch(`/contacts/${id}`, data);
+      toast.success("Contato editado com sucesso.");
+      setShowEditContact(false);
+      if (contact) {
+        const newContact = contact.map((contact: IContact) => {
+          if (contact.id === id) {
+            return { ...contact, ...data };
+          } else {
+            return contact;
+          }
+        });
+        setContact({ ...contact, ...newContact });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Esse contato não pôde ser editado.");
+    }
+  };
+
+  const deleteContact = async (id: string) => {
+    try {
+      await ApiRequests.patch(`/contacts/${id}`);
+      toast.success("Contato excluído com sucesso.");
+      setShowDeleteContact(false);
+      if (contact) {
+        const newContact = contact.filter(
+          (contact: IContact) => contact.id !== id
+        );
+        setContact({ ...contact, ...newContact });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Esse contato não pôde ser excluído.");
     }
   };
 
@@ -47,6 +88,8 @@ export const ContactProvider = ({ children }: IChildren) => {
         contact,
         setContact,
         createContact,
+        updateContact,
+        deleteContact,
         showAddContact,
         setShowAddContact,
         showEditContact,
