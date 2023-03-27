@@ -3,10 +3,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 import { ContactContext } from "../../../contexts/ContactContext";
-import {
-  IContact,
-  IUpdateContact,
-} from "../../../interfaces/contact.interface";
+import { IContact } from "../../../interfaces/contact.interface";
 import { updateContactSerializer } from "../../../serializers/ContactSerializers";
 import { TypeContext } from "../../../contexts/TypeContext";
 
