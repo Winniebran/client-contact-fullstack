@@ -8,3 +8,5 @@ export const createContactSerializer = z.object({
   image: z.string().trim().nullish(),
   type: z.string(),
 });
+
+export const updateContactSerializer = createContactSerializer.partial();

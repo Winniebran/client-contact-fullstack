@@ -10,9 +10,10 @@ import { TypeContext } from "../../contexts/TypeContext";
 import NoCard from "../../assets/NoCard.svg";
 import { AddContactModal } from "../../components/Modal/ModalContact/AddContactModal";
 import { AddTypeModal } from "../../components/Modal/ModalType/AddTypeModal";
+import { EditContactModal } from "../../components/Modal/ModalContact/EditContactModal";
 
 export const DashboardPage = () => {
-  const { contact, showAddContact, setShowAddContact } =
+  const { contact, showAddContact, setShowAddContact, showEditContact } =
     useContext(ContactContext);
   const { type, showAddType, setShowAddType } = useContext(TypeContext);
 
@@ -63,6 +64,7 @@ export const DashboardPage = () => {
             {contact?.map((contact) => (
               <ContactCard contact={contact} key={contact?.id} />
             ))}
+            {showEditContact && <EditContactModal />}
           </ul>
         )}
       </section>

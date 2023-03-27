@@ -1,5 +1,5 @@
 import { IClient, IClientLogin, IClientRegister } from "./client.interface";
-import { IContact, IUpdateContact } from "./contact.interface";
+import { IContact, ICurrentContact, IUpdateContact } from "./contact.interface";
 import { IType, IUpdateType } from "./type.interface";
 
 export interface IChildren {
@@ -25,6 +25,8 @@ export interface IContactContext {
   setShowEditContact: React.Dispatch<React.SetStateAction<boolean>>;
   showDeleteContact: boolean;
   setShowDeleteContact: React.Dispatch<React.SetStateAction<boolean>>;
+  currentContact: ICurrentContact | null;
+  setCurrentContact: React.Dispatch<React.SetStateAction<ICurrentContact | null>>;
   createContact: (data: IContact) => Promise<void>;
   updateContact: (data: IUpdateContact, id: string) => Promise<void>;
   deleteContact: (id: string) => Promise<void>;
