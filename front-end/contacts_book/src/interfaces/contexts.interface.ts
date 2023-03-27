@@ -41,6 +41,8 @@ export interface ITypeContext {
   setShowEditType: React.Dispatch<React.SetStateAction<boolean>>;
   showDeleteType: boolean;
   setShowDeleteType: React.Dispatch<React.SetStateAction<boolean>>;
+  currentType: IType | null;
+  setCurrentType: React.Dispatch<React.SetStateAction<IType | null>>;
   createType: (data: IType) => Promise<void>;
   updateType: (data: IUpdateType, id: string) => Promise<void>;
   deleteType: (id: string) => Promise<void>;

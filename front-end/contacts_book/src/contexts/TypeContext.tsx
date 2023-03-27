@@ -11,6 +11,7 @@ export const TypeProvider = ({ children }: IChildren) => {
   const [showAddType, setShowAddType] = useState(false);
   const [showEditType, setShowEditType] = useState(false);
   const [showDeleteType, setShowDeleteType] = useState(false);
+  const [currentType, setCurrentType] = useState<IType | null>(null);
 
   const createType = async (data: IType) => {
     try {
@@ -28,7 +29,7 @@ export const TypeProvider = ({ children }: IChildren) => {
 
   const updateType = async (data: IUpdateType, id: string) => {
     try {
-      await ApiRequests.post(`/type/${id}`, data);
+      await ApiRequests.patch(`/type/${id}`, data);
       toast.success("Filtro editado com sucesso.");
       setShowEditType(false);
       if (type) {
@@ -48,8 +49,9 @@ export const TypeProvider = ({ children }: IChildren) => {
   };
 
   const deleteType = async (id: string) => {
+    console.log(id)
     try {
-      await ApiRequests.post(`/type/${id}`);
+      await ApiRequests.delete(`/type/${id}`);
       toast.success("Filtro excluído com sucesso.");
       setShowDeleteType(false);
       if (type) {
@@ -85,6 +87,8 @@ export const TypeProvider = ({ children }: IChildren) => {
         setShowEditType,
         showDeleteType,
         setShowDeleteType,
+        currentType,
+        setCurrentType,
         createType,
         updateType,
         deleteType,

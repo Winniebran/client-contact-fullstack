@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import { CgUserAdd, CgUserRemove, CgUserList } from "react-icons/cg";
+import { CgUserAdd, CgUserList } from "react-icons/cg";
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
-import { GrEdit } from "react-icons/gr";
+import { IoAddCircleOutline } from "react-icons/io5";
 import { ContactCard } from "../../components/Card/ContactCard";
 import { TypeCard } from "../../components/Card/TypeCard";
 import { ContactContext } from "../../contexts/ContactContext";
@@ -11,11 +10,15 @@ import NoCard from "../../assets/NoCard.svg";
 import { AddContactModal } from "../../components/Modal/ModalContact/AddContactModal";
 import { AddTypeModal } from "../../components/Modal/ModalType/AddTypeModal";
 import { EditContactModal } from "../../components/Modal/ModalContact/EditContactModal";
+import { EditTypeModal } from "../../components/Modal/ModalType/EditTypeModal";
+// import { DeleteTypeModal } from "../../components/Modal/ModalType/DeleteTypeModal";
 
 export const DashboardPage = () => {
   const { contact, showAddContact, setShowAddContact, showEditContact } =
     useContext(ContactContext);
-  const { type, showAddType, setShowAddType } = useContext(TypeContext);
+    
+  const { type, showAddType, setShowAddType, showEditType, showDeleteType } =
+    useContext(TypeContext);
 
   return (
     <main>
@@ -36,12 +39,6 @@ export const DashboardPage = () => {
           <button onClick={() => setShowAddType(true)}>
             <IoAddCircleOutline />
           </button>
-          <button>
-            <GrEdit />
-          </button>
-          <button>
-            <IoRemoveCircleOutline />
-          </button>
           {!type?.length ? (
             <p> Ainda não possui nenhum filtro!</p>
           ) : (
@@ -49,6 +46,8 @@ export const DashboardPage = () => {
               {type?.map((type) => (
                 <TypeCard type={type} key={type.id} />
               ))}
+              {showEditType && <EditTypeModal />}
+              {/* {showDeleteType && <DeleteTypeModal />} */}
             </ul>
           )}
         </div>
