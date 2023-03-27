@@ -7,7 +7,7 @@ import { GrEdit } from "react-icons/gr";
 import { IType } from "../../interfaces/type.interface";
 
 export const TypeCard = ({ type }: any) => {
-  const { setShowEditType, setCurrentType, setShowDeleteType, deleteType } =
+  const { setShowEditType, setCurrentType, deleteType } =
     useContext(TypeContext);
 
   const editType = (type: IType) => {

@@ -11,13 +11,12 @@ import { AddContactModal } from "../../components/Modal/ModalContact/AddContactM
 import { AddTypeModal } from "../../components/Modal/ModalType/AddTypeModal";
 import { EditContactModal } from "../../components/Modal/ModalContact/EditContactModal";
 import { EditTypeModal } from "../../components/Modal/ModalType/EditTypeModal";
-// import { DeleteTypeModal } from "../../components/Modal/ModalType/DeleteTypeModal";
 
 export const DashboardPage = () => {
   const { contact, showAddContact, setShowAddContact, showEditContact } =
     useContext(ContactContext);
-    
-  const { type, showAddType, setShowAddType, showEditType, showDeleteType } =
+
+  const { type, showAddType, setShowAddType, showEditType } =
     useContext(TypeContext);
 
   return (
@@ -47,7 +46,6 @@ export const DashboardPage = () => {
                 <TypeCard type={type} key={type.id} />
               ))}
               {showEditType && <EditTypeModal />}
-              {/* {showDeleteType && <DeleteTypeModal />} */}
             </ul>
           )}
         </div>

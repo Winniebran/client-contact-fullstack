@@ -49,7 +49,6 @@ export const TypeProvider = ({ children }: IChildren) => {
   };
 
   const deleteType = async (id: string) => {
-    console.log(id)
     try {
       await ApiRequests.delete(`/type/${id}`);
       toast.success("Filtro excluído com sucesso.");
