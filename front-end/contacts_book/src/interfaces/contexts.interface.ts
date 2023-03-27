@@ -1,6 +1,6 @@
 import { IClient, IClientLogin, IClientRegister } from "./client.interface";
-import { IContact, ICreateContact, IUpdateContact } from "./contact.interface";
-import { ICreateType, IType } from "./type.interface";
+import { IContact, IUpdateContact } from "./contact.interface";
+import { IType, IUpdateType } from "./type.interface";
 
 export interface IChildren {
   children: React.ReactNode;
@@ -40,6 +40,6 @@ export interface ITypeContext {
   showDeleteType: boolean;
   setShowDeleteType: React.Dispatch<React.SetStateAction<boolean>>;
   createType: (data: IType) => Promise<void>;
-  // updateType: (data: IUpdateType, id: string) => Promise<void>;
-  // deleteType: (id: string) => Promise<void>;
+  updateType: (data: IUpdateType, id: string) => Promise<void>;
+  deleteType: (id: string) => Promise<void>;
 }

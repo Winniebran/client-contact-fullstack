@@ -34,7 +34,7 @@ export const ContactProvider = ({ children }: IChildren) => {
 
   const updateContact = async (data: IUpdateContact, id: string) => {
     try {
-      const response = await ApiRequests.patch(`/contacts/${id}`, data);
+      await ApiRequests.patch(`/contacts/${id}`, data);
       toast.success("Contato editado com sucesso.");
       setShowEditContact(false);
       if (contact) {
