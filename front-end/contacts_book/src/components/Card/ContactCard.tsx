@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { ContactContext } from "../../contexts/ContactContext";
 import { CiTrash, CiEdit } from "react-icons/ci";
+import { IContact, ICurrentContact } from "../../interfaces/contact.interface";
 
 export const ContactCard = ({ contact }: any) => {
-  const { setShowEditContact, setCurrentContact } = useContext(ContactContext);
+  const { setShowEditContact, setCurrentContact, deleteContact } =
+    useContext(ContactContext);
 
-  const editContact = (contact: any) => {
+  const editContact = (contact: ICurrentContact) => {
     setShowEditContact(true);
     setCurrentContact({ ...contact });
   };
@@ -24,7 +26,7 @@ export const ContactCard = ({ contact }: any) => {
           <CiEdit />
         </button>
         <button>
-          <CiTrash />
+          <CiTrash onClick={() => deleteContact(contact?.id)} />
         </button>
       </div>
     </li>

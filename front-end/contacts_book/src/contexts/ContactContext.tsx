@@ -1,7 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { IContact, ICurrentContact, IUpdateContact } from "../interfaces/contact.interface";
+import {
+  IContact,
+  ICurrentContact,
+  IUpdateContact,
+} from "../interfaces/contact.interface";
 import { IChildren, IContactContext } from "../interfaces/contexts.interface";
 import { ApiRequests } from "../services/ApiRequest";
 
@@ -12,7 +16,9 @@ export const ContactProvider = ({ children }: IChildren) => {
   const [showAddContact, setShowAddContact] = useState(false);
   const [showEditContact, setShowEditContact] = useState(false);
   const [showDeleteContact, setShowDeleteContact] = useState(false);
-  const [currentContact, setCurrentContact] = useState<ICurrentContact | null>(null);
+  const [currentContact, setCurrentContact] = useState<ICurrentContact | null>(
+    null
+  );
 
   const createContact = async (data: IContact) => {
     try {
@@ -20,7 +26,6 @@ export const ContactProvider = ({ children }: IChildren) => {
       toast.success("Contato criado com sucesso.");
       setShowAddContact(false);
       if (contact) {
-        console.log(response)
         setContact([...contact, response.data]);
       }
     } catch (error) {
@@ -52,9 +57,8 @@ export const ContactProvider = ({ children }: IChildren) => {
 
   const deleteContact = async (id: string) => {
     try {
-      await ApiRequests.patch(`/contacts/${id}`);
+      await ApiRequests.delete(`/contacts/${id}`);
       toast.success("Contato excluído com sucesso.");
-      setShowDeleteContact(false);
       if (contact) {
         const newContact = contact.filter(
           (contact: IContact) => contact.id !== id
@@ -71,7 +75,7 @@ export const ContactProvider = ({ children }: IChildren) => {
     const listContact = async () => {
       try {
         const response = await ApiRequests.get("/contacts");
-        console.log(response)
+
         setContact([...response.data]);
       } catch (error) {
         console.log(error);

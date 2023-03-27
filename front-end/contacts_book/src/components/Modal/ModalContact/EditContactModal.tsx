@@ -33,7 +33,7 @@ export const EditContactModal = () => {
 
       <form
         onSubmit={handleSubmit((data) =>
-          updateContact(data, currentContact!.id as string)
+          updateContact(data, currentContact?.id as string)
         )}
       >
         <div>
