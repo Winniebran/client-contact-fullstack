@@ -19,11 +19,11 @@ export const TypeCard = ({ type }: any) => {
     <li>
       <div></div>
       {type.name}
-      <button>
-        <GrEdit onClick={() => editType(type)} />
+      <button onClick={() => editType(type)}>
+        <GrEdit />
       </button>
-      <button>
-        <IoRemoveCircleOutline onClick={() => deleteType(type?.id)} />
+      <button onClick={() => deleteType(type?.id)}>
+        <IoRemoveCircleOutline />
       </button>
     </li>
   );

@@ -26,4 +26,3 @@ export interface IClientRegister {
   cellPhone: string;
   image?: string;
 }
-

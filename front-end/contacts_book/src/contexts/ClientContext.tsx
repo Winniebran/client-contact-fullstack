@@ -14,47 +14,41 @@ export const ClientContext = createContext({} as IClientContext);
 
 export const ClientProvider = ({ children }: IChildren) => {
   const [client, setClient] = useState<IClient | null>(null);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const clientRegister = async (data: IClientRegister) => {
     try {
-      setLoading(true);
       const response = await ApiRequests.post("/client", data);
-      navigate("/");
       setClient(response.data);
+
+      navigate("/");
       toast.success("Cadastro realizado com sucesso.");
     } catch (error) {
       console.log(error);
       toast.error("E-mail já cadastrado");
-    } finally {
-      setLoading(false);
     }
   };
 
   const clientLogin = async (data: IClientLogin) => {
     try {
-      const response = await ApiRequests.post("/login", data);
-      localStorage.setItem("@contactland:token", response.data.token);
+      const client = await ApiRequests.post("/login", data);
+      localStorage.setItem("@contactland:token", client.data.token);
+
       const contacts = await ApiRequests.get("/contacts", {
-        headers: { Authorization: `Bearer ${response.data.token}` },
+        headers: { Authorization: `Bearer ${client.data.token}` },
       });
-      localStorage.setItem("@contactland:contact", JSON.stringify(contacts.data))
+      localStorage.setItem(
+        "@contactland:contact",
+        JSON.stringify(contacts.data)
+      );
+
       await profile();
       toast.success("Login realizado com sucesso.");
     } catch (error) {
       console.log(error);
       toast.error("Email e/ou senha são inválidos");
     }
-  };
-
-  const clientLogout = () => {
-    setClient(null);
-    localStorage.removeItem("@contactland:token");
-    localStorage.removeItem("@contactland:token");
-    toast("Desconectado com sucesso!");
-    navigate("/");
   };
 
   const profile = async () => {
@@ -64,6 +58,7 @@ export const ClientProvider = ({ children }: IChildren) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClient(data);
+      
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -71,16 +66,20 @@ export const ClientProvider = ({ children }: IChildren) => {
   };
 
   useEffect(() => {
-    (async () => {
-      await profile();
-    })();
+    profile();
   }, []);
+
+  const clientLogout = () => {
+    setClient(null);
+    localStorage.removeItem("@contactland:token");
+    localStorage.removeItem("@contactland:token");
+    toast("Desconectado com sucesso!");
+    navigate("/");
+  };
 
   return (
     <ClientContext.Provider
       value={{
-        loading,
-        setLoading,
         client,
         setClient,
         clientLogin,

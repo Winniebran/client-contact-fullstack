@@ -7,8 +7,6 @@ export interface IChildren {
 }
 
 export interface IClientContext {
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   client: IClient | null;
   setClient: React.Dispatch<React.SetStateAction<IClient | null>>;
   clientLogin: (data: IClientLogin) => Promise<void>;
@@ -18,7 +16,6 @@ export interface IClientContext {
 
 export interface IContactContext {
   contact: IContact[] | null;
-  setContact: React.Dispatch<React.SetStateAction<IContact[] | null>>;
   showAddContact: boolean;
   setShowAddContact: React.Dispatch<React.SetStateAction<boolean>>;
   showEditContact: boolean;
@@ -32,8 +29,7 @@ export interface IContactContext {
   createContact: (data: IContact) => Promise<void>;
   updateContact: (data: IUpdateContact, id: string) => Promise<void>;
   deleteContact: (id: string) => Promise<void>;
-  filterSearchContact: IContact[] | undefined
-  listContact: () => Promise<void>;
+  filterSearchContact: IContact[] | undefined;
 }
 
 export interface ITypeContext {

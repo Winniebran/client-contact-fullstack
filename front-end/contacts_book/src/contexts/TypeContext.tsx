@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { IChildren, ITypeContext } from "../interfaces/contexts.interface";
 import { IType, IUpdateType } from "../interfaces/type.interface";

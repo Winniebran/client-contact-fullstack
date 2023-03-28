@@ -27,8 +27,8 @@ export const ContactCard = ({ contact }: any) => {
         <button onClick={() => editContact(contact)}>
           <CiEdit />
         </button>
-        <button>
-          <CgUserRemove onClick={() => deleteContact(contact?.id)} />
+        <button onClick={() => deleteContact(contact?.id)}>
+          <CgUserRemove  />
         </button>
       </div>
     </li>
