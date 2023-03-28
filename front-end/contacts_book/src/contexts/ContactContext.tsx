@@ -13,42 +13,58 @@ export const ContactContext = createContext({} as IContactContext);
 
 export const ContactProvider = ({ children }: IChildren) => {
   const [contact, setContact] = useState<IContact[] | null>(null);
+  const [input, setInput] = useState<string>("");
   const [showAddContact, setShowAddContact] = useState(false);
   const [showEditContact, setShowEditContact] = useState(false);
-  const [showDeleteContact, setShowDeleteContact] = useState(false);
   const [currentContact, setCurrentContact] = useState<ICurrentContact | null>(
     null
   );
 
   const createContact = async (data: IContact) => {
     try {
-      const response = await ApiRequests.post("/contacts", data);
+      const token = localStorage.getItem("@contactland:token");
+      const response = await ApiRequests.post("/contacts", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      contact && setContact([...contact, response.data]);
+
       toast.success("Contato criado com sucesso.");
       setShowAddContact(false);
-      if (contact) {
-        setContact([...contact, response.data]);
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse contato já foi criado, é possível editá-lo.");
     }
   };
 
+  const listContact = async () => {
+    try {
+      const token = localStorage.getItem("@contactland:token");
+      const { data } = await ApiRequests.get("/contacts", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setContact([...data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const updateContact = async (data: IUpdateContact, id: string) => {
     try {
-      await ApiRequests.patch(`/contacts/${id}`, data);
+      const token = localStorage.getItem("@contactland:token");
+      await ApiRequests.patch(`/contacts/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newContact = contact?.map((contact: IContact) => {
+        if (contact.id === id) {
+          return { ...contact, ...data };
+        } else {
+          return contact;
+        }
+      });
+      contact && setContact({ ...contact, ...newContact });
+
       toast.success("Contato editado com sucesso.");
       setShowEditContact(false);
-      if (contact) {
-        const newContact = contact.map((contact: IContact) => {
-          if (contact.id === id) {
-            return { ...contact, ...data };
-          } else {
-            return contact;
-          }
-        });
-        setContact({ ...contact, ...newContact });
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse contato não pôde ser editado.");
@@ -57,32 +73,44 @@ export const ContactProvider = ({ children }: IChildren) => {
 
   const deleteContact = async (id: string) => {
     try {
-      await ApiRequests.delete(`/contacts/${id}`);
+      const token = localStorage.getItem("@contactland:token");
+      await ApiRequests.delete(`/contacts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newContact = contact?.filter(
+        (contact: IContact) => contact.id !== id
+      );
+      contact && setContact({ ...contact, ...newContact });
+
       toast.success("Contato excluído com sucesso.");
-      if (contact) {
-        const newContact = contact.filter(
-          (contact: IContact) => contact.id !== id
-        );
-        setContact({ ...contact, ...newContact });
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse contato não pôde ser excluído.");
     }
   };
 
-  useEffect(() => {
-    const listContact = async () => {
-      try {
-        const response = await ApiRequests.get("/contacts");
+  const compareString = (string: string) => {
+    return string
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[^a-zA-Z\s]/g, "")
+      .includes(
+        input
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[^a-zA-Z\s]/g, "")
+          .trim()
+      );
+  };
 
-        setContact([...response.data]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    listContact();
-  }, []);
+  const filterSearchContact = contact?.filter((contact: IContact) =>
+    input === ""
+      ? true
+      : compareString(contact.email) ||
+        compareString(contact.firstName) ||
+        compareString(contact.lastName) ||
+        compareString(contact.cellPhone)
+  );
 
   return (
     <ContactContext.Provider
@@ -96,10 +124,12 @@ export const ContactProvider = ({ children }: IChildren) => {
         setShowAddContact,
         showEditContact,
         setShowEditContact,
-        showDeleteContact,
-        setShowDeleteContact,
         currentContact,
         setCurrentContact,
+        input,
+        setInput,
+        listContact,
+        filterSearchContact,
       }}
     >
       {children}
