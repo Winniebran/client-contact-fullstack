@@ -43,17 +43,17 @@ export const TypeProvider = ({ children }: IChildren) => {
   const updateType = async (data: IUpdateType, id: string) => {
     try {
       const token = localStorage.getItem("@contactland:token");
-      await ApiRequests.patch(`/type/${id}`, data, {
+      const response = await ApiRequests.patch(`/type/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const newType = type?.map((type: IType) => {
+      const newType: any = type?.map((type: IType) => {
         if (type.id === id) {
-          return { ...type, ...data };
+          return response.data;
         } else {
           return type;
         }
       });
-      type && setType({ ...type, ...newType });
+      type && setType(newType);
 
       toast.success("Filtro editado com sucesso.");
       setShowEditType(false);
@@ -69,8 +69,8 @@ export const TypeProvider = ({ children }: IChildren) => {
       await ApiRequests.delete(`/type/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const newType = type?.filter((type: IType) => type.id !== id);
-      type && setType({ ...type, ...newType });
+      const newType: any = type?.filter((type: IType) => type.id !== id);
+      type && setType(newType);
 
       toast.success("Filtro excluído com sucesso.");
     } catch (error) {
