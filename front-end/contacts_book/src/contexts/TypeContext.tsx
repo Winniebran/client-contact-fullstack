@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { IChildren, ITypeContext } from "../interfaces/contexts.interface";
-import { ICreateType, IType, IUpdateType } from "../interfaces/type.interface";
+import { IType, IUpdateType } from "../interfaces/type.interface";
 import { ApiRequests } from "../services/ApiRequest";
 
 export const TypeContext = createContext({} as ITypeContext);
@@ -10,38 +10,53 @@ export const TypeProvider = ({ children }: IChildren) => {
   const [type, setType] = useState<IType[] | null>(null);
   const [showAddType, setShowAddType] = useState(false);
   const [showEditType, setShowEditType] = useState(false);
-  const [showDeleteType, setShowDeleteType] = useState(false);
   const [currentType, setCurrentType] = useState<IType | null>(null);
 
   const createType = async (data: IType) => {
     try {
-      const response = await ApiRequests.post("/type", data);
+      const token = localStorage.getItem("@contactland:token");
+      const response = await ApiRequests.post("/type", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      type && setType([...type, response.data]);
+
       toast.success("Filtro criado com sucesso.");
       setShowAddType(false);
-      if (type) {
-        setType([...type, response.data]);
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse filtro já foi criado, é possível editá-lo.");
     }
   };
 
+  const listType = async () => {
+    try {
+      const token = localStorage.getItem("@contactland:token");
+      const response = await ApiRequests.get("/type", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setType([...response.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const updateType = async (data: IUpdateType, id: string) => {
     try {
-      await ApiRequests.patch(`/type/${id}`, data);
+      const token = localStorage.getItem("@contactland:token");
+      await ApiRequests.patch(`/type/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newType = type?.map((type: IType) => {
+        if (type.id === id) {
+          return { ...type, ...data };
+        } else {
+          return type;
+        }
+      });
+      type && setType({ ...type, ...newType });
+
       toast.success("Filtro editado com sucesso.");
       setShowEditType(false);
-      if (type) {
-        const newType = type.map((type: IType) => {
-          if (type.id === id) {
-            return { ...type, ...data };
-          } else {
-            return type;
-          }
-        });
-        setType({ ...type, ...newType });
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse filtro não pôde ser editado.");
@@ -50,30 +65,19 @@ export const TypeProvider = ({ children }: IChildren) => {
 
   const deleteType = async (id: string) => {
     try {
-      await ApiRequests.delete(`/type/${id}`);
+      const token = localStorage.getItem("@contactland:token");
+      await ApiRequests.delete(`/type/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newType = type?.filter((type: IType) => type.id !== id);
+      type && setType({ ...type, ...newType });
+
       toast.success("Filtro excluído com sucesso.");
-      setShowDeleteType(false);
-      if (type) {
-        const newType = type.filter((type: IType) => type.id !== id);
-        setType({ ...type, ...newType });
-      }
     } catch (error) {
       console.log(error);
       toast.error("Esse filtro não pôde ser excluído.");
     }
   };
-
-  useEffect(() => {
-    const listType = async () => {
-      try {
-        const response = await ApiRequests.get("/type");
-        setType([...response.data]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    listType();
-  }, []);
 
   return (
     <TypeContext.Provider
@@ -84,13 +88,12 @@ export const TypeProvider = ({ children }: IChildren) => {
         setShowAddType,
         showEditType,
         setShowEditType,
-        showDeleteType,
-        setShowDeleteType,
         currentType,
         setCurrentType,
         createType,
         updateType,
         deleteType,
+        listType,
       }}
     >
       {children}
