@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors"
 import "express-async-errors";
 import "reflect-metadata";
 import { handleError } from "./errors/handleError";
@@ -12,6 +13,7 @@ import {
 
 export const app: Application = express();
 app.use(express.json());
+app.use(cors())
 
 app.use("/client", clientRouter);
 app.use("/login", loginRouter);
