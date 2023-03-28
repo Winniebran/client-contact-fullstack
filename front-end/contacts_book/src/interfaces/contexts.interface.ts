@@ -32,7 +32,7 @@ export interface IContactContext {
   createContact: (data: IContact) => Promise<void>;
   updateContact: (data: IUpdateContact, id: string) => Promise<void>;
   deleteContact: (id: string) => Promise<void>;
-  filterSearchContact: IContact[] | undefined;
+  filterSearchContact: IContact[] | undefined
   listContact: () => Promise<void>;
 }
 

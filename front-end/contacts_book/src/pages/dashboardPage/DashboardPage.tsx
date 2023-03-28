@@ -31,7 +31,7 @@ export const DashboardPage = () => {
     listContact();
     listType();
   }, []);
-
+  
   return (
     <>
       <Header />

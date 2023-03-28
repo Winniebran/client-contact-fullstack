@@ -37,6 +37,10 @@ export const ClientProvider = ({ children }: IChildren) => {
     try {
       const response = await ApiRequests.post("/login", data);
       localStorage.setItem("@contactland:token", response.data.token);
+      const contacts = await ApiRequests.get("/contacts", {
+        headers: { Authorization: `Bearer ${response.data.token}` },
+      });
+      localStorage.setItem("@contactland:contact", JSON.stringify(contacts.data))
       await profile();
       toast.success("Login realizado com sucesso.");
     } catch (error) {
@@ -47,6 +51,7 @@ export const ClientProvider = ({ children }: IChildren) => {
 
   const clientLogout = () => {
     setClient(null);
+    localStorage.removeItem("@contactland:token");
     localStorage.removeItem("@contactland:token");
     toast("Desconectado com sucesso!");
     navigate("/");

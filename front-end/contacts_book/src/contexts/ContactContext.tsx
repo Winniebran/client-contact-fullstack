@@ -19,6 +19,7 @@ export const ContactProvider = ({ children }: IChildren) => {
   const [currentContact, setCurrentContact] = useState<ICurrentContact | null>(
     null
   );
+  const [loading, setLoading] = useState(false);
 
   const createContact = async (data: IContact) => {
     try {
@@ -38,11 +39,14 @@ export const ContactProvider = ({ children }: IChildren) => {
 
   const listContact = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("@contactland:token");
       const { data } = await ApiRequests.get("/contacts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setContact([...data]);
+      console.log(contact);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -54,14 +58,15 @@ export const ContactProvider = ({ children }: IChildren) => {
       await ApiRequests.patch(`/contacts/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const newContact = contact?.map((contact: IContact) => {
-        if (contact.id === id) {
-          return { ...contact, ...data };
-        } else {
-          return contact;
-        }
+      await ApiRequests.get<IContact[]>("/contacts", {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((response) => {
+        localStorage.setItem(
+          "@contactland:contact",
+          JSON.stringify(response.data)
+        );
+        setContact(response.data);
       });
-      contact && setContact({ ...contact, ...newContact });
 
       toast.success("Contato editado com sucesso.");
       setShowEditContact(false);
@@ -77,10 +82,15 @@ export const ContactProvider = ({ children }: IChildren) => {
       await ApiRequests.delete(`/contacts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const newContact = contact?.filter(
-        (contact: IContact) => contact.id !== id
-      );
-      contact && setContact({ ...contact, ...newContact });
+      await ApiRequests.get<IContact[]>("/contacts", {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((response) => {
+        localStorage.setItem(
+          "@contactland:contact",
+          JSON.stringify(response.data)
+        );
+        setContact(response.data);
+      });
 
       toast.success("Contato excluído com sucesso.");
     } catch (error) {
@@ -103,13 +113,17 @@ export const ContactProvider = ({ children }: IChildren) => {
       );
   };
 
-  const filterSearchContact = contact?.filter((contact: IContact) =>
-    input === ""
-      ? true
-      : compareString(contact.email) ||
-        compareString(contact.firstName) ||
-        compareString(contact.lastName) ||
-        compareString(contact.cellPhone)
+  const contactsLocalStorage = JSON.parse(
+    localStorage.getItem("@contactland:contact")!
+  );
+  const filterSearchContact = contactsLocalStorage?.filter(
+    (contact: IContact) =>
+      input === ""
+        ? true
+        : compareString(contact.email) ||
+          compareString(contact.firstName) ||
+          compareString(contact.lastName) ||
+          compareString(contact.cellPhone)
   );
 
   return (
