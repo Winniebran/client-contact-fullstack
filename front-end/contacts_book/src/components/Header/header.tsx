@@ -35,7 +35,8 @@ export const Header = () => {
       </nav>
 
       <div>
-        <img src={client?.image} alt="imagem de perfil" />}</p>
+        <img src={client?.image} alt="imagem de perfil" />
+        <p>{client?.firstName}</p>
       </div>
     </header>
   );
