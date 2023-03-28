@@ -21,8 +21,9 @@ export const ClientProvider = ({ children }: IChildren) => {
   const clientRegister = async (data: IClientRegister) => {
     try {
       setLoading(true);
-      await ApiRequests.post("/client", data);
+      const response = await ApiRequests.post("/client", data);
       navigate("/");
+      setClient(response.data);
       toast.success("Cadastro realizado com sucesso.");
     } catch (error) {
       console.log(error);
@@ -34,17 +35,13 @@ export const ClientProvider = ({ children }: IChildren) => {
 
   const clientLogin = async (data: IClientLogin) => {
     try {
-      setLoading(true);
       const response = await ApiRequests.post("/login", data);
       localStorage.setItem("@contactland:token", response.data.token);
-      setClient(response.data);
-      navigate("/dashboard");
+      await profile();
       toast.success("Login realizado com sucesso.");
     } catch (error) {
       console.log(error);
       toast.error("Email e/ou senha são inválidos");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -55,20 +52,24 @@ export const ClientProvider = ({ children }: IChildren) => {
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("@contactland:token");
-  //   !token && navigate("/");
+  const profile = async () => {
+    try {
+      const token = localStorage.getItem("@contactland:token");
+      const { data } = await ApiRequests.get("/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setClient(data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  //   const profile = async () => {
-  //     try {
-  //       const response = await ApiRequests.get("/profile");
-  //       setClient(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   profile();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      await profile();
+    })();
+  }, []);
 
   return (
     <ClientContext.Provider

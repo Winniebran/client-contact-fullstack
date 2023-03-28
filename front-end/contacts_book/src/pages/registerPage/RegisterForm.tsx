@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FiPhone, FiLock, FiImage, FiUser, FiMail } from "react-icons/fi"
+import { FiPhone, FiLock, FiImage, FiUser, FiMail } from "react-icons/fi";
 import { ClientContext } from "../../contexts/ClientContext";
 import { IClientRegister } from "../../interfaces/client.interface";
 import { registerClientSerializer } from "../../serializers/ClientSerializer";
@@ -72,6 +72,7 @@ export const RegisterForm = () => {
             id="password"
             type="password"
             placeholder="Senha"
+            autoComplete="current-password"
             {...register("password")}
           />
         </div>
@@ -83,6 +84,7 @@ export const RegisterForm = () => {
             id="confirmPassword"
             type="password"
             placeholder="Confirmar Senha"
+            autoComplete="confirm-current-password"
             {...register("confirmPassword")}
           />
         </div>
