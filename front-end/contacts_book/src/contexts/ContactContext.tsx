@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import {
@@ -19,15 +19,24 @@ export const ContactProvider = ({ children }: IChildren) => {
   const [currentContact, setCurrentContact] = useState<ICurrentContact | null>(
     null
   );
-  const [loading, setLoading] = useState(false);
+
+  const getContacts = async () => {
+    const token = localStorage.getItem("@contactland:token");
+    await ApiRequests.get<IContact[]>("/contacts", {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((response) => {
+      localStorage.setItem("@contactland:contact", JSON.stringify(response.data));
+      setContact(response.data);
+    });
+  };
 
   const createContact = async (data: IContact) => {
     try {
       const token = localStorage.getItem("@contactland:token");
-      const response = await ApiRequests.post("/contacts", data, {
+      await ApiRequests.post("/contacts", data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      contact && setContact([...contact, response.data]);
+      await getContacts();
 
       toast.success("Contato criado com sucesso.");
       setShowAddContact(false);
@@ -37,36 +46,13 @@ export const ContactProvider = ({ children }: IChildren) => {
     }
   };
 
-  const listContact = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem("@contactland:token");
-      const { data } = await ApiRequests.get("/contacts", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setContact([...data]);
-      console.log(contact);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const updateContact = async (data: IUpdateContact, id: string) => {
     try {
       const token = localStorage.getItem("@contactland:token");
       await ApiRequests.patch(`/contacts/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      await ApiRequests.get<IContact[]>("/contacts", {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((response) => {
-        localStorage.setItem(
-          "@contactland:contact",
-          JSON.stringify(response.data)
-        );
-        setContact(response.data);
-      });
+      getContacts();
 
       toast.success("Contato editado com sucesso.");
       setShowEditContact(false);
@@ -82,15 +68,7 @@ export const ContactProvider = ({ children }: IChildren) => {
       await ApiRequests.delete(`/contacts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      await ApiRequests.get<IContact[]>("/contacts", {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((response) => {
-        localStorage.setItem(
-          "@contactland:contact",
-          JSON.stringify(response.data)
-        );
-        setContact(response.data);
-      });
+      getContacts();
 
       toast.success("Contato excluído com sucesso.");
     } catch (error) {
@@ -116,6 +94,7 @@ export const ContactProvider = ({ children }: IChildren) => {
   const contactsLocalStorage = JSON.parse(
     localStorage.getItem("@contactland:contact")!
   );
+
   const filterSearchContact = contactsLocalStorage?.filter(
     (contact: IContact) =>
       input === ""
@@ -130,7 +109,6 @@ export const ContactProvider = ({ children }: IChildren) => {
     <ContactContext.Provider
       value={{
         contact,
-        setContact,
         createContact,
         updateContact,
         deleteContact,
@@ -142,7 +120,6 @@ export const ContactProvider = ({ children }: IChildren) => {
         setCurrentContact,
         input,
         setInput,
-        listContact,
         filterSearchContact,
       }}
     >
