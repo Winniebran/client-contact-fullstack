@@ -4,11 +4,12 @@ import { ContactContext } from "../../../contexts/ContactContext";
 import NoCard from "../../../@types/assets/NoCard.svg";
 import { ContactCard } from "../../Card/ContactCard";
 import { EditContactModal } from "../../Modal/ModalContact/EditContactModal";
+import { StyledSectionContact } from "../../../styles/section";
 export const Contacts = () => {
   const { showEditContact, filterSearchContact } = useContext(ContactContext);
 
   return (
-    <section>
+    <StyledSectionContact>
       <h3>Meus Contatos:</h3>
       {!filterSearchContact?.length ? (
         <div>
@@ -23,6 +24,6 @@ export const Contacts = () => {
           {showEditContact && <EditContactModal />}
         </ul>
       )}
-    </section>
+    </StyledSectionContact>
   );
 };

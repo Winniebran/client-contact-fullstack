@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { TypeContext } from "../../contexts/TypeContext";
 
 import { IoRemoveCircleOutline } from "react-icons/io5";
-import { GrEdit } from "react-icons/gr";
+import { AiOutlineEdit } from "react-icons/ai";
 import { IType } from "../../interfaces/type.interface";
 
 export const TypeCard = ({ type }: any) => {
@@ -17,14 +17,15 @@ export const TypeCard = ({ type }: any) => {
 
   return (
     <li>
-      <div></div>
       {type.name}
-      <button onClick={() => editType(type)}>
-        <GrEdit />
-      </button>
-      <button onClick={() => deleteType(type?.id)}>
-        <IoRemoveCircleOutline />
-      </button>
+      <div className="button-li">
+        <button onClick={() => editType(type)}>
+          <AiOutlineEdit />
+        </button>
+        <button onClick={() => deleteType(type?.id)}>
+          <IoRemoveCircleOutline />
+        </button>
+      </div>
     </li>
   );
 };

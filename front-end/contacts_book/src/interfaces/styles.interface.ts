@@ -8,3 +8,8 @@ export interface IText {
   fontSize: string;
   fontFamily: string;
 }
+
+export interface IButton {
+  height?: string;
+  color?: string;
+}

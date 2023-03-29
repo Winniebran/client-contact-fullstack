@@ -29,3 +29,19 @@ export const StyledDivHeader = styled.div`
     width: var(--width-2);
   }
 `;
+
+export const StyledDivType = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .gap {
+    height: 22%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+`;
