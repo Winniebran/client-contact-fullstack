@@ -3,3 +3,8 @@ export interface ITypography {
   className?: string;
   children: React.ReactNode;
 }
+
+export interface IText {
+  fontSize: string;
+  fontFamily: string;
+}

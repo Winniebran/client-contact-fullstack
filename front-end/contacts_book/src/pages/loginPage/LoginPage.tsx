@@ -1,14 +1,23 @@
 import { LoginForm } from "./LoginForm";
-import Contacts from "../../../src/@types/assets/Contacts.jpg" 
+import Contacts from "../../../src/@types/assets/Contacts.svg";
+import { StyledDivHeader } from "../../styles/div";
+import { StyledSection } from "../../styles/section";
+import { Footer } from "../../components/Footer/Footer";
+import { StyledTitle } from "../../styles/typography";
 
 export const LoginPage = () => {
   return (
-    <section>
-      <div className="header">
-        <img src={ Contacts } alt="imagem de contatos" />
-        <span>Seus contatos perto de você</span>
-      </div>
-      <LoginForm />
-    </section>
+    <>
+      <StyledSection>
+        <StyledDivHeader>
+          <img src={Contacts} alt="imagem de contatos" />
+          <StyledTitle tag="span" fontFamily="one" fontSize="five">
+            Seus contatos perto de você
+          </StyledTitle>
+        </StyledDivHeader>
+        <LoginForm />
+      </StyledSection>
+      <Footer />
+    </>
   );
 };

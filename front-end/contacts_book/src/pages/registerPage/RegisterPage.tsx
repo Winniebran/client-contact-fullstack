@@ -1,5 +1,5 @@
 import { RegisterForm } from "./RegisterForm";
-import Contacts from "../../../src/@types/assets/Contacts.jpg" 
+import Contacts from "../../../src/@types/assets/Contacts.svg" 
 
 export const RegisterPage = () => {
     return (

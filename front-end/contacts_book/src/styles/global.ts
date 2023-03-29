@@ -10,12 +10,13 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-size: 100%;
-        color: none;
+        color: var(--color-grey-3);
         vertical-align: baseline;
         text-decoration: none;
         border: none;
         box-sizing: border-box;
         background: none;
+        font-family: var(--font-family-Nunito);
     }
     
     input:-webkit-autofill {
@@ -29,6 +30,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         width: 100vw;
+        height: 100vh;
         overflow-x: hidden;
     }
 
@@ -60,7 +62,7 @@ export const GlobalStyle = createGlobalStyle`
         --color-primary-focus: #e1d7f9;
         --color-secondary-1: #fecc45;
         --color-secondary-2: #febeb2;
-        --color-grey-3: #1b0006
+        --color-grey-3: #1b0006;
         --color-grey-2: #d0cedd;
         --color-grey-1: #fcfbfb;
         --color-grey-0: #ffffff;
@@ -69,13 +71,28 @@ export const GlobalStyle = createGlobalStyle`
 
         /* Size Elements */
         --height-1: 100%;
-	    --height-2: 48px;
-	    --height-3: 38px;
-        --height-4: 28px;
+	    --height-2: 90%;
+        --height-3: 80%;
+        --height-4: 70%;
+        --height-5: 60%;
+        --height-6: 50%;
+        --height-7: 40%;
+        --height-8: 30%;
+        --height-9: 20%;
+        --height-10: 10%;
+
 
         --width-1: 100%;
 	    --width-2: 90%;
         --width-3: 80%;
+        --width-4: 70%;
+        --width-5: 60%;
+        --width-6: 50%;
+        --width-7: 40%;
+        --width-8: 30%;
+        --width-9: 20%;
+        --width-10: 10%;
+
 
         /* Text Sizes */
         --title-1: 60px;
@@ -106,12 +123,12 @@ export const GlobalStyle = createGlobalStyle`
         --font-weight-extraligth:200;
 
         /* Margins */
-        --gap-1: 32px;
+        --gap-1: 30px;
         --gap-2: 28px;
         --gap-3: 24px;
         --gap-4: 20px;
         --gap-5: 16px;
-        --gap-6: 8px;
+        --gap-6: 10px;
 
         /* Border Radius */
         --radius-1: 4px;
