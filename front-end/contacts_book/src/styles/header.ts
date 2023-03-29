@@ -45,7 +45,6 @@ export const StyledNav = styled.nav`
   form {
     display: flex;
     align-items: center;
-
     border: 1px solid var(--color-grey-2);
     border-radius: var(--radius-3);
 
@@ -54,6 +53,8 @@ export const StyledNav = styled.nav`
       color: var(--color-secondary-2);
       font-size: var(--title-8);
       font-weight: var(--font-weight-regular);
+      display: flex;
+      align-items: center;
     }
   }
 `;

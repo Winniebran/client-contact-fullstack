@@ -3,7 +3,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { TypeContext } from "../../../contexts/TypeContext";
 import { StyledButtonDashboard } from "../../../styles/button";
 import { StyledDivType } from "../../../styles/div";
-import { StyledList } from "../../../styles/list";
+import { StyledListType } from "../../../styles/list";
 import { StyledTitle } from "../../../styles/typography";
 import { TypeCard } from "../../Card/TypeCard";
 import { EditTypeModal } from "../../Modal/ModalType/EditTypeModal";
@@ -24,12 +24,12 @@ export const Types = () => {
       {!type?.length ? (
         <p> Ainda não possui nenhum filtro!</p>
       ) : (
-        <StyledList>
+        <StyledListType>
           {type?.map((type) => (
             <TypeCard type={type} key={type.id} />
           ))}
           {showEditType && <EditTypeModal />}
-        </StyledList>
+        </StyledListType>
       )}
     </StyledDivType>
   );

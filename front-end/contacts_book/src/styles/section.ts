@@ -30,10 +30,10 @@ export const StyledSectionType = styled.section`
 
 export const StyledSectionContact = styled.section`
   width: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   background-color: var(--color-grey-1);
-  padding-right: 40px;
+  gap: 30px;
 `;
