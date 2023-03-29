@@ -1,14 +1,14 @@
 import { LoginForm } from "./LoginForm";
-import react from "../../assets/react.svg"
+import Contacts from "../../../src/@types/assets/Contacts.jpg" 
 
 export const LoginPage = () => {
-    return (
-        <section>
-            <div className="header">
-                <img src={react} alt="em breve uma imagem" />
-                <span>Seus contatos perto de você</span>
-            </div>
-            <LoginForm />
-        </section>
-      );
+  return (
+    <section>
+      <div className="header">
+        <img src={ Contacts } alt="imagem de contatos" />
+        <span>Seus contatos perto de você</span>
+      </div>
+      <LoginForm />
+    </section>
+  );
 };

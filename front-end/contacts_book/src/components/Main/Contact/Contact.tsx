@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ContactContext } from "../../../contexts/ContactContext";
 
-import NoCard from "../../../assets/NoCard.svg";
+import NoCard from "../../../@types/assets/NoCard.svg";
 import { ContactCard } from "../../Card/ContactCard";
 import { EditContactModal } from "../../Modal/ModalContact/EditContactModal";
 export const Contacts = () => {
