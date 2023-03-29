@@ -2,18 +2,21 @@ import { useContext } from "react";
 
 import { ContactContext } from "../../../contexts/ContactContext";
 import { AiOutlineSearch } from "react-icons/ai";
+import { StyledNav } from "../../../styles/header";
+import { StyledTitle } from "../../../styles/typography";
+import { StyledInput } from "../../../styles/input";
 
 export const Nav = () => {
   const { input, setInput } = useContext(ContactContext);
 
   return (
-    <nav>
-      <h1>CONTACTLAND</h1>
+    <StyledNav>
+      <StyledTitle tag="h1" fontFamily="one" fontSize="five">CONTACTLAND</StyledTitle>
       <form>
         <label htmlFor="search">
           <AiOutlineSearch />
         </label>
-        <input
+        <StyledInput
           id="search"
           type="search"
           value={input}
@@ -22,6 +25,6 @@ export const Nav = () => {
           onChange={(e) => setInput(e.target.value)}
         />
       </form>
-    </nav>
+    </StyledNav>
   );
 };

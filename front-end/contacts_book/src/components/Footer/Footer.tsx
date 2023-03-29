@@ -5,7 +5,7 @@ import { StyledFooter } from "../../styles/footer";
 export const Footer = () => {
   return (
     <StyledFooter>
-      <span> <AiOutlineCopyrightCircle /> 2023. All Rights Reserved. </span>
+      <span> Copyright <AiOutlineCopyrightCircle /> 2023. All Rights Reserved. </span>
       <div className="links">
         <a href="https://www.linkedin.com/in/winnie-brandao/"> <BsLinkedin /> </a>
         <a href="https://github.com/Winniebran"> <BsGithub /> </a>
