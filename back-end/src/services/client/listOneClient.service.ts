@@ -12,11 +12,37 @@ export const listOneClientService = async (
   const clientFound = await clientRepository.findOne({
     where: { id: id },
     withDeleted: true,
+    relations: {
+      contacts: {
+        type: true
+      }
+    },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      cellPhone: true,
+      image: true,
+      isActive: true,
+      createdAt: true,
+      updatedAt: true,
+      deletedAt: true,
+      contacts:{
+        id: true,
+        cellPhone: true,
+        email: true,
+        type: {
+          id: true,
+          name: true
+        }
+      }
+    }
   });
+
   if (!clientFound) {
     throw new AppError("Client not found", 404);
   }
 
-  const clientWithoutPassword = clientResponseSerializer.parse(clientFound);
-  return clientWithoutPassword;
+  return clientFound;
 };

@@ -6,7 +6,11 @@ import { ClientContext } from "../../contexts/ClientContext";
 import { IClientLogin } from "../../interfaces/client.interface";
 import { loginClientSerializer } from "../../serializers/ClientSerializer";
 import { FiLock, FiMail } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { StyledInput } from "../../styles/input";
+import { StyledDivInput } from "../../styles/div";
+import { StyledForm } from "../../styles/form";
+import { StyledButton } from "../../styles/button";
+import { StyledLink } from "../../styles/link";
 
 export const LoginForm = () => {
   const { clientLogin } = useContext(ClientContext);
@@ -18,38 +22,38 @@ export const LoginForm = () => {
   } = useForm<IClientLogin>({ resolver: zodResolver(loginClientSerializer) });
 
   return (
-    <form onSubmit={handleSubmit(clientLogin)}>
-      <div>
-        <div>
+    <StyledForm onSubmit={handleSubmit(clientLogin)}>
+      <div className="div-form">
+        <StyledDivInput>
           <FiMail />
-          <input
+          <StyledInput
             id="email"
             type="email"
             placeholder="E-mail"
             {...register("email")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.email?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiLock />
-          <input
+          <StyledInput
             id="password"
             type="password"
             placeholder="Senha"
             {...register("password")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.password?.message}</span>
       </div>
 
-      <div>
-        <button>Login</button>
+      <div className="div-button">
+        <StyledButton>Login</StyledButton>
         <p>
           Não possui uma conta?
-          <Link to={"/register"}>Cadastre-se!</Link>
+          <StyledLink to={"/register"}> Cadastre-se!</StyledLink>
         </p>
       </div>
-    </form>
+    </StyledForm>
   );
 };

@@ -33,4 +33,17 @@ https://client-contact-fullstack.vercel.app/ <br><br>
 <br><br><br>
 
 ## <strong>Front-end:</strong>
-**em breve**
+
+### Deploy:
+**em breve** <br><br>
+
+### Tecnologias/libs utilizadas:
+ 1. React.js;
+ 2. TypeScript;
+ 3. Axios;
+ 4. React-hook-form;
+ 5. React-hot-toast;
+ 6. React-icons;
+ 7. React-router-dom;
+ 8. Zod.
+<br><br>

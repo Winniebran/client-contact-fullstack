@@ -14,14 +14,16 @@ export const listContactsController = async (req: Request, res: Response) => {
 
 export const createContactsController = async (req: Request, res: Response) => {
   const contactsData: IContactRequest = req.body;
-  const contacts = await createContactsService(contactsData);
+  const clientId: string =  req.client.id;
+  const contacts = await createContactsService(contactsData, clientId);
   return res.status(201).json(contacts);
 };
 
 export const updateContactsController = async (req: Request, res: Response) => {
   const contactsData: IContactUpdate = req.body;
   const id: string = req.params.id;
-  const contacts = await updateContactsService(id, contactsData);
+  const clientId: string =  req.client.id;
+  const contacts = await updateContactsService(id, contactsData, clientId);
   return res.status(200).json(contacts);
 };
 
