@@ -45,5 +45,6 @@ https://client-contact-fullstack.vercel.app/ <br><br>
  5. React-hot-toast;
  6. React-icons;
  7. React-router-dom;
- 8. Zod.
+ 8. Zod;
+ 9. Styled Components;
 <br><br>
