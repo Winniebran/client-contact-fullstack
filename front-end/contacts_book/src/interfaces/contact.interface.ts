@@ -9,7 +9,7 @@ export interface IContact {
   image?: string;
   createdAt: Date;
   updatedAt: Date;
-  type: IType[];
+  type: IType;
 }
 
 export interface ICurrentContact {

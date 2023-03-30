@@ -25,7 +25,10 @@ export const ContactProvider = ({ children }: IChildren) => {
     await ApiRequests.get<IContact[]>("/contacts", {
       headers: { Authorization: `Bearer ${token}` },
     }).then((response) => {
-      localStorage.setItem("@contactland:contact", JSON.stringify(response.data));
+      localStorage.setItem(
+        "@contactland:contact",
+        JSON.stringify(response.data)
+      );
       setContact(response.data);
     });
   };
@@ -102,6 +105,7 @@ export const ContactProvider = ({ children }: IChildren) => {
         : compareString(contact.email) ||
           compareString(contact.firstName) ||
           compareString(contact.lastName) ||
+          compareString(contact.type.name) ||
           compareString(contact.cellPhone)
   );
 

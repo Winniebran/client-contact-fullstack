@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledDivInput = styled.div`
   display: flex;
   align-items: center;
-
+  width: 60%;
   border: 1px solid var(--color-grey-2);
   border-radius: var(--radius-3);
 

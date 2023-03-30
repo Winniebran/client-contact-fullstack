@@ -62,9 +62,13 @@ export const StyledSectionModal = styled.section`
     .modal-header {
       button {
         position: absolute;
-        right: 405px;
+        right: 495px;
         top: 142px;
         font-size: var(--title-6);
+
+        :focus {
+          outline: none;
+        }
       }
     }
   }
@@ -82,9 +86,13 @@ export const StyledSectionModal = styled.section`
     .modal-header-type {
       button {
         position: absolute;
-        right: 490px;
+        right: 580px;
         top: 275px;
         font-size: var(--title-6);
+
+        :focus {
+          outline: none;
+        }
       }
     }
   }

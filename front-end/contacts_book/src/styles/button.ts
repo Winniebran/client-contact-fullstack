@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { IButton } from "../interfaces/styles.interface";
 
 export const StyledButton = styled.button`
-  width: var(--width-1);
+  width: var(--width-3);
   height: var(--height-1);
 
   background-color: var(--color-primary-1);

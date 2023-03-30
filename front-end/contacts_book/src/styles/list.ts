@@ -22,6 +22,14 @@ export const StyledListType = styled.ul`
 
       button {
         color: var(--color-secondary-2);
+
+        &:hover {
+          color: var(--color-primary-1);
+        }
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }
@@ -31,7 +39,6 @@ export const StyledListContact = styled.ul`
   width: 100%;
   height: 20%;
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -66,6 +73,11 @@ export const StyledListContact = styled.ul`
         display: flex;
         justify-content: left;
         gap: 50px;
+
+        .type-name {
+          color: var(--color-secondary-1);
+          font-weight: var(--font-weigth-black);
+        }
       }
     }
 
@@ -81,6 +93,10 @@ export const StyledListContact = styled.ul`
 
         &:hover {
           color: var(--color-secondary-2);
+        }
+
+        :focus {
+          outline: none;
         }
       }
     }

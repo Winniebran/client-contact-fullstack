@@ -24,7 +24,7 @@ export const ContactCard = ({ contact }: any) => {
         </div>
         <div className="div-personal-data">
           <span>{contact.email}</span>
-          <span>{contact.type.name}</span>
+          <span className="type-name">{contact.type.name}</span>
         </div>
       </div>
       <div className="button-li-contact">
