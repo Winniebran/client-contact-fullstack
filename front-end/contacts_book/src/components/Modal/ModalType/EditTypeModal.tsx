@@ -7,6 +7,10 @@ import { updateTypeSerializer } from "../../../serializers/TypeSerializers";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
+import { StyledSectionModal } from "../../../styles/section";
+import { StyledTitle } from "../../../styles/typography";
+import { StyledFormModal } from "../../../styles/form";
+import { StyledInput } from "../../../styles/input";
 
 export const EditTypeModal = () => {
   const { updateType, setShowEditType, currentType } = useContext(TypeContext);
@@ -16,32 +20,35 @@ export const EditTypeModal = () => {
   });
 
   return (
-    <section>
-      <div>
-        <h2> Editar Tipo de Contato </h2>
-        <button type="button" onClick={() => setShowEditType(false)}>
-          <AiOutlineCloseCircle />
-        </button>
-      </div>
-
-      <form
-        onSubmit={handleSubmit((data) =>
-          updateType(data, currentType?.id as string)
-        )}
-      >
-        <div>
-          <label htmlFor="name">Nome</label>
-          <FiUser />
-          <input
-            id="name"
-            type="text"
-            defaultValue={currentType?.name}
-            {...register("name")}
-          />
+    <StyledSectionModal>
+      <div className="modal-type">
+        <div className="modal-header-type">
+          <StyledTitle tag="h2" fontFamily="one" fontSize="seven">
+            Editar Tipo de Contato
+          </StyledTitle>
+          <button type="button" onClick={() => setShowEditType(false)}>
+            <AiOutlineCloseCircle />
+          </button>
         </div>
 
-        <button>Editar</button>
-      </form>
-    </section>
+        <StyledFormModal
+          onSubmit={handleSubmit((data) =>
+            updateType(data, currentType?.id as string)
+          )}
+        >
+          <div className="div-input-modal">
+            <FiUser />
+            <StyledInput
+              id="name"
+              type="text"
+              defaultValue={currentType?.name}
+              {...register("name")}
+            />
+          </div>
+
+          <button className="button-modal-type">Editar</button>
+        </StyledFormModal>
+      </div>
+    </StyledSectionModal>
   );
 };

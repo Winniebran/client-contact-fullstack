@@ -6,7 +6,6 @@ import { ClientContext } from "../../contexts/ClientContext";
 import { IClientLogin } from "../../interfaces/client.interface";
 import { loginClientSerializer } from "../../serializers/ClientSerializer";
 import { FiLock, FiMail } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import { StyledInput } from "../../styles/input";
 import { StyledDivInput } from "../../styles/div";
 import { StyledForm } from "../../styles/form";

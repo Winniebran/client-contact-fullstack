@@ -7,6 +7,10 @@ import { IType } from "../../../interfaces/type.interface";
 import { createTypeSerializer } from "../../../serializers/TypeSerializers";
 
 import { AiOutlineCloseCircle, AiFillTag } from "react-icons/ai";
+import { StyledSectionModal } from "../../../styles/section";
+import { StyledTitle } from "../../../styles/typography";
+import { StyledFormModal } from "../../../styles/form";
+import { StyledInput } from "../../../styles/input";
 
 export const AddTypeModal = () => {
   const { createType, setShowAddType } = useContext(TypeContext);
@@ -20,28 +24,31 @@ export const AddTypeModal = () => {
   });
 
   return (
-    <section>
-      <div>
-        <h2> Adicionar novo tipo de contato </h2>
-        <button type="button" onClick={() => setShowAddType(false)}>
-          <AiOutlineCloseCircle />
-        </button>
-      </div>
-
-      <form onSubmit={handleSubmit(createType)}>
-        <div>
-          <label htmlFor="name">Nome</label>
-          <AiFillTag />
-          <input
-            id="name"
-            type="text"
-            placeholder="Digite o tipo de contato"
-            {...register("name")}
-          />
+    <StyledSectionModal>
+      <div className="modal-type">
+        <div className="modal-header-type">
+          <StyledTitle tag="h2" fontFamily="one" fontSize="seven">
+            Adicionar tipo de contato
+          </StyledTitle>
+          <button type="button" onClick={() => setShowAddType(false)}>
+            <AiOutlineCloseCircle />
+          </button>
         </div>
-        <span>{errors.name?.message}</span>
-        <button>Adicionar</button>
-      </form>
-    </section>
+
+        <StyledFormModal onSubmit={handleSubmit(createType)}>
+          <div className="div-input-modal">
+            <AiFillTag />
+            <StyledInput
+              id="name"
+              type="text"
+              placeholder="Digite o tipo de contato"
+              {...register("name")}
+            />
+          </div>
+          <span>{errors.name?.message}</span>
+          <button className="button-modal-type">Adicionar</button>
+        </StyledFormModal>
+      </div>
+    </StyledSectionModal>
   );
 };

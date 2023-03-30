@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledDivInput = styled.div`
-  width: var(--width-4);
   display: flex;
   align-items: center;
 

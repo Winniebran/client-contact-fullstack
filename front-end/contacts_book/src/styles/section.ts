@@ -37,3 +37,55 @@ export const StyledSectionContact = styled.section`
   background-color: var(--color-grey-1);
   gap: 30px;
 `;
+
+export const StyledSectionModal = styled.section`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-transparecy-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal {
+    width: 40%;
+    height: 70%;
+    background-color: var(--color-grey-0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 30px;
+
+    .modal-header {
+      button {
+        position: absolute;
+        right: 405px;
+        top: 142px;
+        font-size: var(--title-6);
+      }
+    }
+  }
+
+  .modal-type {
+    width: 30%;
+    height: 40%;
+    background-color: var(--color-grey-0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 10px;
+    border-radius: 30px;
+
+    .modal-header-type {
+      button {
+        position: absolute;
+        right: 490px;
+        top: 275px;
+        font-size: var(--title-6);
+      }
+    }
+  }
+`;
