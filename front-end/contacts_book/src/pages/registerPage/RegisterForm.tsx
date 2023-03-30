@@ -2,11 +2,16 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FiPhone, FiLock, FiImage, FiUser, FiMail } from "react-icons/fi"
+import { FiPhone, FiLock, FiImage, FiUser, FiMail } from "react-icons/fi";
 import { ClientContext } from "../../contexts/ClientContext";
 import { IClientRegister } from "../../interfaces/client.interface";
 import { registerClientSerializer } from "../../serializers/ClientSerializer";
 import { Link } from "react-router-dom";
+import { StyledForm } from "../../styles/form";
+import { StyledLink } from "../../styles/link";
+import { StyledButton } from "../../styles/button";
+import { StyledDivInput } from "../../styles/div";
+import { StyledInput } from "../../styles/input";
 
 export const RegisterForm = () => {
   const { clientRegister } = useContext(ClientContext);
@@ -20,93 +25,95 @@ export const RegisterForm = () => {
   });
 
   return (
-    <form onSubmit={handleSubmit(clientRegister)}>
-      <div>
-        <div>
+    <StyledForm onSubmit={handleSubmit(clientRegister)}>
+      <div className="div-form">
+        <StyledDivInput>
           <FiUser />
-          <input
+          <StyledInput
             id="firstName"
             type="text"
             placeholder="Nome"
             {...register("firstName")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.firstName?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiUser />
-          <input
+          <StyledInput
             id="lastName"
             type="text"
             placeholder="Sobrenome"
             {...register("lastName")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.lastName?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiMail />
-          <input
+          <StyledInput
             id="email"
             type="email"
             placeholder="E-mail"
             {...register("email")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.email?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiPhone />
-          <input
+          <StyledInput
             id="cellPhone"
             type="tel"
             placeholder="Celular"
             {...register("cellPhone")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.cellPhone?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiLock />
-          <input
+          <StyledInput
             id="password"
             type="password"
             placeholder="Senha"
+            autoComplete="current-password"
             {...register("password")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.password?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiLock />
-          <input
+          <StyledInput
             id="confirmPassword"
             type="password"
             placeholder="Confirmar Senha"
+            autoComplete="confirm-current-password"
             {...register("confirmPassword")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.confirmPassword?.message}</span>
 
-        <div>
+        <StyledDivInput>
           <FiImage />
-          <input
+          <StyledInput
             id="image"
             type="text"
             placeholder="Imagem do Perfil"
             {...register("image")}
           />
-        </div>
+        </StyledDivInput>
         <span>{errors.image?.message}</span>
       </div>
 
-      <div className="button-login">
-        <button>Cadastrar</button>
+      <div className="div-button">
+        <StyledButton>Cadastrar</StyledButton>
         <p>
           Já possui uma conta?
-          <Link to={"/"}>Faça Login!</Link>
+          <StyledLink to={"/"}> Faça Login!</StyledLink>
         </p>
       </div>
-    </form>
+    </StyledForm>
   );
 };

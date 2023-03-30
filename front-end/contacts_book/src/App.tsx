@@ -1,6 +1,8 @@
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import { ClientProvider } from "./contexts/ClientContext";
+import { ContactProvider } from "./contexts/ContactContext";
+import { TypeProvider } from "./contexts/TypeContext";
 import { MainRoutes } from "./routes/Routes";
 
 const App = () => {
@@ -14,10 +16,14 @@ const App = () => {
         }}
       />
       <ClientProvider>
-        <MainRoutes />
+        <ContactProvider>
+          <TypeProvider>
+            <MainRoutes />
+          </TypeProvider>
+        </ContactProvider>
       </ClientProvider>
     </>
   );
-}
+};
 
 export default App;
