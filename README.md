@@ -6,6 +6,33 @@ Projeto desenvolvido em Março/23.<br><br>
 ## <strong>Back-end:</strong>
 <br>
 
+### Instalação e execução da aplicação e testes:<br>
+
+1. Acessar o diretório *contacts_book* e:
+<br><br>
+
+#### Instalação de dependências com bash:
+```bash
+yarn install
+```
+<br>
+
+### Defina as variáveis de ambiente no arquivo .env e:<br>
+
+1. Acessar o diretório *contacts_book* e:
+<br><br>
+
+#### Execute testes da aplicação com bash:
+```bash
+yarn test
+```
+
+#### Execute a aplicação com bash:<br>
+```bash
+yarn dev
+```
+<br>
+
 ### Diagrama ER: 
 ![Diagrams](back-end/diagrams.png)<br><br>
 
@@ -33,6 +60,23 @@ https://client-contact-fullstack.vercel.app/ <br><br>
 <br><br><br>
 
 ## <strong>Front-end:</strong>
+<br>
+
+### Instalação e execução da aplicação: <br>
+
+1. Acessar o diretório *contacts_book* e:
+<br><br>
+
+#### Instalação de dependências com bash:
+```bash
+yarn install
+```
+
+#### Execute a aplicação com bash:<br>
+```bash
+yarn dev
+```
+<br>
 
 ### Deploy:
 **em breve** <br><br>
