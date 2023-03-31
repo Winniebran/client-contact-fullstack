@@ -1,6 +1,6 @@
-# Contacts Book
+# CONTACTLAND
 
-O <strong>Contacts Book</strong> tem como objetivo ser uma ferramenta que reúne todos os seus contatos, trazendo facilidade para encontrar e-mails e telefones de empresas ou pessoas de qualquer convivio social. <br><br>
+O <strong>CONTACTLAND</strong> tem como objetivo ser uma ferramenta que reúne todos os seus contatos, trazendo facilidade para encontrar e-mails e telefones de empresas ou pessoas de qualquer convivio social. <br><br>
 Projeto desenvolvido em Março/23.<br><br>
 
 ## <strong>Back-end:</strong>
