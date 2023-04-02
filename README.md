@@ -8,7 +8,7 @@ Projeto desenvolvido em Março/23.<br><br>
 
 ### Instalação e execução da aplicação e testes:<br>
 
-1. Acessar o diretório *contacts_book* e:
+1. Acessar o diretório *back-end* e:
 <br><br>
 
 #### Instalação de dependências com bash:
@@ -25,6 +25,11 @@ yarn install
 #### Execute testes da aplicação com bash:
 ```bash
 yarn test
+```
+
+### Rode as migrações:<br>
+```bash
+yarn typeorm migration:run -d src/data-souce.ts
 ```
 
 #### Execute a aplicação com bash:<br>
