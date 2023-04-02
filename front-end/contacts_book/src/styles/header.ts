@@ -15,11 +15,10 @@ export const StyledHeader = styled.header`
     .perfil {
       width: 60%;
       display: flex;
-      justify-content: start;
       align-items: center;
       background-color: var(--color-secondary-2);
       padding: 5px;
-      gap: 20px;
+      gap: 35px;
       border-radius: 30px;
 
       img {
@@ -27,6 +26,27 @@ export const StyledHeader = styled.header`
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
+      }
+
+      .button-perfil {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        button {
+          color: var(--color-primary-1);
+          width: 15px;
+          height: 15px;
+
+          &:hover {
+            color: var(--color-grey-0);
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
       }
     }
 
