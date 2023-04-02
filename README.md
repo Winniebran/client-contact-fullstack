@@ -27,7 +27,7 @@ yarn install
 yarn test
 ```
 
-### Rode as migrações:<br>
+#### Rode as migrações:<br>
 ```bash
 yarn typeorm migration:run -d src/data-souce.ts
 ```
