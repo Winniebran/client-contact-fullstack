@@ -5,6 +5,7 @@ import {
   IClient,
   IClientLogin,
   IClientRegister,
+  IClientUpdate,
 } from "../interfaces/client.interface";
 import { IChildren, IClientContext } from "../interfaces/contexts.interface";
 import { ApiRequests } from "../services/ApiRequest";
@@ -14,6 +15,7 @@ export const ClientContext = createContext({} as IClientContext);
 
 export const ClientProvider = ({ children }: IChildren) => {
   const [client, setClient] = useState<IClient | null>(null);
+  const [showEditClient, setShowEditClient] = useState(false);
 
   const navigate = useNavigate();
 
@@ -51,6 +53,38 @@ export const ClientProvider = ({ children }: IChildren) => {
     }
   };
 
+  const updateClient = async (data: IClientUpdate) => {
+    try {
+      const token = localStorage.getItem("@contactland:token");
+      const response = await ApiRequests.patch(`/client/${client?.id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setClient(response.data);
+
+      toast.success("Perfil editado com sucesso.");
+      setShowEditClient(false)
+    } catch (error) {
+      console.log(error);
+      toast.error("Perfil não pôde ser editado");
+    }
+  };
+
+  const deleteClient = async () => {
+    try {
+      const token = localStorage.getItem("@contactland:token");
+      const response = await ApiRequests.delete(`/client/${client?.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setClient(response.data);
+
+      navigate("/");
+      toast.success("Perfil excluído com sucesso.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Perfil não pôde ser excluído");
+    }
+  };
+
   const profile = async () => {
     try {
       const token = localStorage.getItem("@contactland:token");
@@ -58,7 +92,7 @@ export const ClientProvider = ({ children }: IChildren) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClient(data);
-      
+
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -85,6 +119,10 @@ export const ClientProvider = ({ children }: IChildren) => {
         clientLogin,
         clientLogout,
         clientRegister,
+        updateClient,
+        deleteClient,
+        showEditClient,
+        setShowEditClient,
       }}
     >
       {children}
