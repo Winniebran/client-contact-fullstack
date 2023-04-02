@@ -26,3 +26,12 @@ export interface IClientRegister {
   cellPhone: string;
   image?: string;
 }
+
+export interface IClientUpdate {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  cellPhone?: string;
+  image?: string;
+}
