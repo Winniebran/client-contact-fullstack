@@ -1,4 +1,9 @@
-import { IClient, IClientLogin, IClientRegister } from "./client.interface";
+import {
+  IClient,
+  IClientLogin,
+  IClientRegister,
+  IClientUpdate,
+} from "./client.interface";
 import { IContact, ICurrentContact, IUpdateContact } from "./contact.interface";
 import { IType, IUpdateType } from "./type.interface";
 
@@ -12,6 +17,10 @@ export interface IClientContext {
   clientLogin: (data: IClientLogin) => Promise<void>;
   clientLogout: () => void;
   clientRegister: (data: IClientRegister) => Promise<void>;
+  updateClient: (data: IClientUpdate) => Promise<void>;
+  deleteClient: () => Promise<void>;
+  showEditClient: boolean;
+  setShowEditClient: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IContactContext {

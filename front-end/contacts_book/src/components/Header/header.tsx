@@ -1,14 +1,26 @@
 import { useContext } from "react";
 
 import { ClientContext } from "../../contexts/ClientContext";
-
-import { AiOutlineLogout } from "react-icons/ai";
 import { Nav } from "../Header/Nav/Nav";
+import NoImg from "../../@types/assets/NoImg.jpg";
+
 import { StyledHeader } from "../../styles/header";
-import { StyledButton } from "../../styles/button";
+import { AiOutlineLogout, AiOutlineEdit } from "react-icons/ai";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+import { EditClientModal } from "../Modal/ModalClient/EditClientModal";
 
 export const Header = () => {
-  const { clientLogout, client } = useContext(ClientContext);
+  const {
+    clientLogout,
+    client,
+    deleteClient,
+    setShowEditClient,
+    showEditClient,
+  } = useContext(ClientContext);
+
+  const editClient = () => {
+    setShowEditClient(true);
+  };
 
   return (
     <StyledHeader>
@@ -16,14 +28,27 @@ export const Header = () => {
 
       <div className="header">
         <div className="perfil">
-          <img src={client?.image} alt="imagem de perfil" />
+          {client?.image == "" ? (
+            <img src={NoImg} alt="imagem de perfil" />
+          ) : (
+            <img src={client?.image} alt="imagem de perfil" />
+          )}
           <p>{client?.firstName}</p>
+          <div className="button-perfil">
+            <button onClick={() => editClient()}>
+              <AiOutlineEdit />
+            </button>
+            <button onClick={() => deleteClient()}>
+              <IoRemoveCircleOutline />
+            </button>
+          </div>
         </div>
 
         <button onClick={() => clientLogout()}>
           <AiOutlineLogout />
         </button>
       </div>
+      {showEditClient && <EditClientModal />}
     </StyledHeader>
   );
 };

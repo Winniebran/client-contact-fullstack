@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { ContactContext } from "../../contexts/ContactContext";
+import NoImg from "../../@types/assets/NoImg.jpg";
 import { ICurrentContact } from "../../interfaces/contact.interface";
 import { CiEdit } from "react-icons/ci";
 import { CgUserRemove } from "react-icons/cg";
@@ -16,7 +17,11 @@ export const ContactCard = ({ contact }: any) => {
 
   return (
     <li>
-      <img src={contact.image} />
+      {contact?.image == "" ? (
+        <img src={NoImg} alt="imagem de perfil" />
+      ) : (
+        <img src={contact.image} alt="imagem de perfil" />
+      )}
       <div className="div-contact-card">
         <div className="div-personal-data">
           <span>{`${contact.firstName} ${contact.lastName} `}</span>
