@@ -19,7 +19,7 @@ yarn install
 
 ### Defina as variáveis de ambiente no arquivo .env e:<br>
 
-1. Acessar o diretório *contacts_book* e:
+1. Acessar o diretório *back-end* e:
 <br><br>
 
 #### Execute testes da aplicação com bash:
@@ -29,7 +29,7 @@ yarn test
 
 #### Rode as migrações:<br>
 ```bash
-yarn typeorm migration:run -d src/data-souce.ts
+yarn typeorm migration:run -d src/data-source.ts
 ```
 
 #### Execute a aplicação com bash:<br>
