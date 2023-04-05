@@ -15,6 +15,10 @@ Projeto desenvolvido em Março/23.<br><br>
 ```bash
 yarn install
 ```
+#### Execute testes da aplicação com bash:
+```bash
+yarn test
+```
 <br>
 
 ### Defina as variáveis de ambiente no arquivo .env e:<br>
@@ -22,10 +26,7 @@ yarn install
 1. Acessar o diretório *back-end* e:
 <br><br>
 
-#### Execute testes da aplicação com bash:
-```bash
-yarn test
-```
+
 
 #### Rode as migrações:<br>
 ```bash
