@@ -10,7 +10,7 @@ export const updateClientService = async (
 ): Promise<IClientResponse> => {
   const clientRepository = appDataSource.getRepository(Client);
 
-  const [foundClient] = await clientRepository.find({
+  const foundClient = await clientRepository.findOne({
     where: { id: id },
     withDeleted: true,
   });

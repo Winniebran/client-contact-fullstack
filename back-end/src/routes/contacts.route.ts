@@ -34,7 +34,7 @@ contactsRouter.patch(
   AuthMiddleware,
   isValidToUpdateMiddleware,
   idIsValidMiddleware,
-  constraintMiddleware,
+  // constraintMiddleware,
   dataIsValidMiddleware(updateContactSerializer),
   updateContactsController
 );
