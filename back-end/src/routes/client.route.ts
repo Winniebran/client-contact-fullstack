@@ -34,7 +34,7 @@ clientRouter.patch(
   "/:id",
   isValidToUpdateMiddleware,
   idIsValidMiddleware,
-  constraintMiddleware,
+  // constraintMiddleware,
   dataIsValidMiddleware(updateClientSerializer),
   updateClientController
 );

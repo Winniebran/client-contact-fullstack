@@ -24,7 +24,6 @@ export const constraintMiddleware = async (
     .where("contacts.email = :email", { email: email })
     .getOne();
 
-  console.log(cellPhone);
   const cellPhoneExistsClient = await clientRepository
     .createQueryBuilder("client")
     .withDeleted()
