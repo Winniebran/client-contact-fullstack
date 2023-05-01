@@ -15,7 +15,7 @@ export const Contacts = () => {
       <StyledTitle tag="h3" fontFamily="one" fontSize="seven">Meus Contatos</StyledTitle>
       {!filterSearchContact?.length ? (
         <div>
-          <p> Ainda não possui nenhum contato cadastrado!</p>
+          <StyledTitle tag="p" fontSize="seven" fontFamily="one"> Ainda não possui nenhum contato cadastrado!</StyledTitle>
           <img src={NoCard} alt="Sem contato" />
         </div>
       ) : (

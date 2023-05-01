@@ -48,22 +48,23 @@ export const StyledSectionModal = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   .modal {
-    width: 40%;
-    height: 70%;
+    width: 30%;
+    height: fit-content;
     background-color: var(--color-grey-0);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     border-radius: 30px;
-
+    gap: 20px;
+    
     .modal-header {
       button {
         position: absolute;
-        right: 495px;
-        top: 142px;
+        right: 600px;
+        top: 200px;
         font-size: var(--title-6);
 
         :focus {

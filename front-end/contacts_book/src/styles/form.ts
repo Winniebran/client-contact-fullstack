@@ -77,6 +77,7 @@ export const StyledFormModal = styled.form`
     border-radius: var(--radius-6);
     transition: 0.5s ease-in-out;
     outline: none;
+    padding: 15px;
 
     :hover {
       background-color: var(--color-primary-focus);

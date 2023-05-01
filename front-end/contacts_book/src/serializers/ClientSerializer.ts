@@ -41,7 +41,10 @@ export const updateClientSerializer = z.object({
     .regex(/([a-z])/, "Must contain a lowercase")
     .regex(/(\d)/, "Must contain a number")
     .regex(/(\W)|_/, "Must contain a special character")
-    .regex(/.{8,}/, "Must contain at least 8 characters"),
+    .regex(/.{8,}/, "Must contain at least 8 characters")
+    .optional()
+    .nullable()
+    .nullish(),
   email: z.string().trim().email("Invalid email format").min(10),
   cellPhone: z.string().trim().min(11),
   image: z.string().trim().nullish(),
